@@ -1,0 +1,318 @@
+/* ==========================================================================
+   POP-ART HERO SECTION (FLAT ASSET STACK - STIKER DI PALING DEPAN)
+   ========================================================================== */
+
+.hero-pop-section {
+  position: relative;
+  padding-top: calc(var(--header-height) + 2.5rem);
+  padding-bottom: 4.5rem;
+  background-color: var(--bg-page);
+  overflow: hidden;
+}
+
+.hero-ambient-glow {
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(45, 174, 165, 0.18) 0%, rgba(255, 245, 190, 0.15) 45%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================================================
+   STRUKTUR GRID 2 KOLOM SEIMBANG
+   ========================================================================== */
+
+.hero-pop-container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .hero-pop-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   KOLOM KIRI: FLAT TRANSPARENT ASSET BOX (URUTAN Z-INDEX PRESISI)
+   ========================================================================== */
+
+.hero-visual-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-flat-artwork-box {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
+@media (max-width: 1024px) {
+  .hero-flat-artwork-box {
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-flat-artwork-box {
+    max-width: 310px;
+  }
+}
+
+/* Flat Layers */
+.hero-flat-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: transform;
+  display: block;
+}
+
+/* 1. Texture Background (Paling Belakang) */
+.layer-texture {
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* 2. DREAM Typography Bubble */
+.layer-dream {
+  object-fit: contain;
+  z-index: 10;
+}
+
+/* 3. Cutout Foto Refaldi */
+.layer-profile {
+  object-fit: cover;
+  z-index: 20;
+}
+
+/* 4. Stickers Text (PALING DEPAN - Menimpa di Atas Baju) */
+.layer-stickers {
+  object-fit: contain;
+  z-index: 30;
+}
+
+/* Animasi Floating & Wobble */
+@keyframes dreamFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-0.5deg);
+  }
+}
+
+.animate-dream-float {
+  animation: dreamFloat 5s ease-in-out infinite;
+}
+
+@keyframes stickerWobble {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.015);
+  }
+}
+
+.animate-sticker-wobble {
+  animation: stickerWobble 4s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   KOLOM KANAN: TEKS & TOMBOL (HTML MURNI)
+   ========================================================================== */
+
+.hero-info-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+  .hero-info-column {
+    align-items: center;
+  }
+}
+
+.hero-headline-box {
+  position: relative;
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ambient Flare effect */
+.headline-ambient-flare {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 245, 190, 0.5) 30%, rgba(45, 174, 165, 0.2) 60%, transparent 80%);
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: 0;
+  animation: flarePulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes flarePulse {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+.greeting-line {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-bubble);
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  color: var(--cream-primary);
+  -webkit-text-stroke: 2px var(--teal-primary);
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0px var(--teal-dark);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.name-line {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-bubble);
+  font-size: clamp(2.6rem, 5.8vw, 4.4rem);
+  line-height: 0.95;
+  color: var(--cream-primary);
+  -webkit-text-stroke: 3.5px var(--teal-primary);
+  paint-order: stroke fill;
+  text-shadow: 5px 5px 0px var(--teal-dark);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+  .name-line {
+    -webkit-text-stroke: 2.5px var(--teal-primary);
+    text-shadow: 3px 3px 0px var(--teal-dark);
+  }
+}
+
+/* About Me Box */
+.hero-about-box {
+  margin-bottom: 2rem;
+  max-width: 580px;
+}
+
+.about-title {
+  font-family: var(--font-bubble);
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  color: var(--teal-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.about-paragraph {
+  color: var(--text-main);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  font-weight: 500;
+  text-align: justify;
+}
+
+@media (max-width: 1024px) {
+  .about-paragraph {
+    text-align: center;
+  }
+}
+
+/* Action Buttons */
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .hero-cta-row {
+    justify-content: center;
+  }
+}
+
+/* Social Media Row */
+.hero-social-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1024px) {
+  .hero-social-row {
+    justify-content: center;
+  }
+}
+
+.social-label {
+  font-family: var(--font-rounded);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  text-transform: uppercase;
+}
+
+.social-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.social-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  background: var(--cream-primary);
+  border: 2px solid var(--teal-primary);
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  font-family: var(--font-rounded);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.social-pill-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--teal-deep);
+  background: var(--cream-light);
+}

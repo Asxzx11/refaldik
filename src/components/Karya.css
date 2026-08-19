@@ -1,0 +1,900 @@
+/* ==========================================================================
+   POP-ART KARYA COMPONENT STYLES (WITH ADD KARYA, EDIT & BACKUP SUPPORT)
+   ========================================================================== */
+
+.pop-karya-section {
+  position: relative;
+  background-color: var(--bg-page);
+}
+
+/* Backup & Data Protection Toolbar */
+.karya-backup-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.btn-backup-export {
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-rounded);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  background: var(--cream-primary);
+  border: 2px solid var(--teal-primary);
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-backup-export:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+  background: var(--cream-light);
+}
+
+.btn-backup-import {
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-rounded);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  background: #ffffff;
+  border: 2px dashed var(--teal-primary);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-backup-import:hover {
+  border-style: solid;
+  background: var(--cream-primary);
+  transform: translate(-1px, -1px);
+}
+
+/* Save Toast Notification */
+.karya-save-toast {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  z-index: 3000;
+  background: var(--cream-primary);
+  border: 2.5px solid var(--teal-primary);
+  box-shadow: 4px 4px 0px var(--teal-deep);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.25rem;
+  font-family: var(--font-rounded);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+}
+
+.animate-pop-in {
+  animation: popInToast 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popInToast {
+  0% {
+    transform: translateY(-20px) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Filter Row & Add Karya Button */
+.karya-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 3rem;
+}
+
+.karya-filter-btn {
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-rounded);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  background: var(--cream-primary);
+  border: 2.5px solid var(--teal-primary);
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.karya-filter-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--teal-deep);
+  background: var(--cream-light);
+}
+
+.karya-filter-btn.active {
+  background: var(--teal-primary);
+  color: var(--cream-primary);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+}
+
+/* Highlighted Action Button "+ Tambah Karya Baru" */
+.btn-add-karya-highlight {
+  background: #0d9488;
+  color: #ffffff;
+  border: 2.5px solid var(--teal-deep);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-add-karya-highlight:hover {
+  background: #0f766e;
+  color: #ffffff;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--teal-deep);
+}
+
+.add-btn-icon {
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Empty State */
+.karya-empty-state {
+  max-width: 540px;
+  margin: 2rem auto 3rem auto;
+  text-align: center;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.empty-title {
+  font-family: var(--font-rounded);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+}
+
+.empty-desc {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+.empty-state-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* Grid */
+.pop-karya-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 480px) {
+  .pop-karya-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.karya-pop-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.karya-thumb-box {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  border-bottom: 3px solid var(--teal-primary);
+  background: #0f172a;
+}
+
+.karya-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+}
+
+.karya-thumb-video {
+  pointer-events: none;
+  background: #000;
+}
+
+/* Drive Thumbnail Wrap inside Card */
+.karya-thumb-drive-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #0f172a;
+  overflow: hidden;
+}
+
+.karya-thumb-drive-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.karya-drive-thumb-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1.5px solid var(--teal-primary);
+  color: #ffffff;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-family: var(--font-rounded);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  z-index: 3;
+}
+
+.karya-pop-card:hover .karya-thumb-img {
+  transform: scale(1.08);
+}
+
+.karya-thumb-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(34, 139, 132, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+
+.karya-thumb-box:hover .karya-thumb-overlay {
+  opacity: 1;
+}
+
+.karya-zoom-badge {
+  padding: 0.5rem 1.1rem;
+  background: var(--cream-primary);
+  border: 2px solid var(--teal-deep);
+  border-radius: var(--radius-full);
+  font-family: var(--font-rounded);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  box-shadow: 2px 2px 0px var(--teal-deep);
+}
+
+.karya-cat-sticker {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--cream-primary);
+  border: 2px solid var(--teal-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-rounded);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  box-shadow: 2px 2px 0px var(--teal-deep);
+  z-index: 3;
+}
+
+.karya-pop-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.karya-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.karya-pop-title {
+  font-family: var(--font-rounded);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  line-height: 1.35;
+}
+
+.karya-pop-desc {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.karya-pop-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+}
+
+.karya-pop-footer {
+  padding: 1rem 1.5rem;
+  border-top: 2px dashed var(--teal-primary);
+  background: var(--teal-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.karya-footer-left-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-card-edit {
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: var(--cream-primary);
+  border: 2px solid var(--teal-primary);
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  font-family: var(--font-rounded);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  transition: transform 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-card-edit:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+}
+
+.btn-card-delete {
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-full);
+  background: #fff1f2;
+  border: 2px solid #fda4af;
+  box-shadow: 2px 2px 0px #f43f5e;
+  font-family: var(--font-rounded);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #be123c;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.btn-card-delete:hover {
+  transform: translate(-1px, -1px);
+  background: #ffe4e6;
+  box-shadow: 3px 3px 0px #9f1239;
+}
+
+.btn-karya-action {
+  font-family: var(--font-rounded);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: transform 0.15s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-karya-action:hover {
+  transform: translateX(4px);
+}
+
+/* Lightbox Modal Backdrop & Container */
+.karya-lightbox-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(19, 78, 74, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.karya-lightbox-content {
+  width: 100%;
+  max-width: 760px;
+  max-height: 90vh;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.lightbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: var(--cream-primary);
+  border-bottom: 3px solid var(--teal-primary);
+}
+
+.lightbox-header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.lightbox-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.lightbox-cat {
+  font-family: var(--font-rounded);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+}
+
+.lightbox-title {
+  font-family: var(--font-rounded);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+}
+
+.btn-lightbox-edit {
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-full);
+  background: #ffffff;
+  border: 2px solid var(--teal-primary);
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  font-family: var(--font-rounded);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  transition: transform 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-lightbox-edit:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+}
+
+.btn-lightbox-delete {
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: #fff1f2;
+  border: 2px solid #f43f5e;
+  box-shadow: 2px 2px 0px #be123c;
+  font-family: var(--font-rounded);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #be123c;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.btn-lightbox-delete:hover {
+  transform: translate(-1px, -1px);
+  background: #ffe4e6;
+  box-shadow: 3px 3px 0px #881337;
+}
+
+.lightbox-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--teal-primary);
+  color: var(--cream-primary);
+  border: 2px solid var(--teal-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  box-shadow: 2px 2px 0px var(--teal-deep);
+  transition: transform 0.15s ease;
+  cursor: pointer;
+}
+
+.lightbox-close-btn:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+
+.lightbox-body {
+  padding: 1.75rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.lightbox-img-wrap {
+  width: 100%;
+  max-height: 420px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 3px solid var(--teal-primary);
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+}
+
+.lightbox-video-player {
+  width: 100%;
+  max-height: 420px;
+  outline: none;
+  background: #000000;
+  display: block;
+}
+
+/* Lightbox Drive Embed Container */
+.lightbox-drive-embed-container {
+  width: 100%;
+  height: 400px;
+  background: #000000;
+  position: relative;
+}
+
+.lightbox-drive-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.lightbox-media-action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: -0.25rem;
+}
+
+.drive-info-tag {
+  font-size: 0.8rem;
+  font-family: var(--font-rounded);
+  font-weight: 700;
+  color: var(--teal-deep);
+  background: var(--teal-soft);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--teal-primary);
+}
+
+.btn-open-external {
+  font-size: 0.82rem;
+  font-family: var(--font-rounded);
+  font-weight: 700;
+  color: var(--teal-deep);
+  background: var(--cream-primary);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--teal-primary);
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.15s ease;
+}
+
+.btn-open-external:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+  background: #ffffff;
+}
+
+.lightbox-video-path-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  background: var(--teal-soft);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--teal-primary);
+}
+
+.lightbox-video-path-note code {
+  color: var(--teal-deep);
+  font-weight: 700;
+}
+
+/* Tombol Buka Gambar Resolusi Penuh */
+.lightbox-full-img-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -0.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.btn-full-res-img {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.05rem;
+  border-radius: var(--radius-full);
+  background: var(--cream-primary);
+  color: var(--teal-deep);
+  border: 2px solid var(--teal-primary);
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  font-family: var(--font-rounded);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-full-res-img:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--teal-deep);
+  background: #ffffff;
+  color: var(--teal-dark);
+}
+
+.lightbox-desc-box h4 {
+  font-family: var(--font-rounded);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  margin-bottom: 0.4rem;
+}
+
+.lightbox-desc-box p {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.65;
+}
+
+.lightbox-tools-box strong {
+  display: block;
+  font-family: var(--font-rounded);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  margin-bottom: 0.4rem;
+}
+
+.lightbox-tools-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* ==========================================================================
+   MODAL FORM TAMBAH KARYA BARU STYLES
+   ========================================================================== */
+
+.karya-form-modal {
+  max-width: 660px;
+  max-height: 92vh;
+}
+
+.add-karya-form-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.form-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  max-height: calc(90vh - 160px);
+}
+
+.form-group-pop {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-label-pop {
+  font-family: var(--font-rounded);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.req-accent {
+  color: #e11d48;
+  font-weight: 900;
+}
+
+.pop-select {
+  cursor: pointer;
+}
+
+/* Media Type Pill Selector */
+.media-type-selector {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.media-type-pill {
+  flex: 1;
+  min-width: 140px;
+  padding: 0.55rem 0.85rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-rounded);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  background: var(--teal-soft);
+  border: 2px solid var(--teal-primary);
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: all 0.15s ease;
+}
+
+.media-type-pill:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+  background: var(--cream-primary);
+}
+
+.media-type-pill.active {
+  background: var(--teal-primary);
+  color: #ffffff;
+  border-color: var(--teal-deep);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+}
+
+.type-icon {
+  font-size: 0.95rem;
+}
+
+.form-note-hint {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  background: var(--teal-soft);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--teal-primary);
+  margin-top: 0.2rem;
+}
+
+.form-modal-footer {
+  padding: 1.25rem 1.5rem;
+  background: var(--teal-soft);
+  border-top: 2px solid var(--teal-primary);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.btn-submit-pop {
+  font-size: 0.92rem;
+  padding: 0.6rem 1.4rem;
+}
+
+/* Edit Form inside Modal */
+.karya-edit-form {
+  padding: 1.5rem;
+  background: var(--teal-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.edit-form-heading {
+  font-family: var(--font-rounded);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+}
+
+.edit-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.edit-form-field label {
+  font-family: var(--font-rounded);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+}
+
+.edit-form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .edit-form-row {
+    flex-direction: column;
+  }
+}
+
+.edit-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.lightbox-footer {
+  padding: 1.25rem 1.5rem;
+  background: var(--teal-soft);
+  border-top: 2px solid var(--teal-primary);
+  display: flex;
+  justify-content: flex-end;
+}

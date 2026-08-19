@@ -1,0 +1,333 @@
+/* ==========================================================================
+   REFALDI KURNIAWAN - POP-ART / SCRAPBOOK CREATIVE DESIGN SYSTEM
+   ========================================================================== */
+
+:root {
+  /* Exact Color Palette Inspired by Screenshot */
+  --teal-primary: #2daea5;
+  --teal-dark: #228b84;
+  --teal-deep: #16645f;
+  --teal-soft: #eaf8f6;
+  --teal-border: #228b84;
+
+  --cream-primary: #fff5be;
+  --cream-light: #fef9d8;
+  --cream-dark: #f2df80;
+  --cream-border: #fff5be;
+
+  --bg-page: #fafaf7;
+  --bg-card: #ffffff;
+  --bg-card-teal: #2daea5;
+
+  --text-main: #1f837c;
+  --text-dark: #134e4a;
+  --text-muted: #4e9d96;
+  --text-cream: #fff5be;
+
+  /* Fonts */
+  --font-bubble: 'Titan One', 'Fredoka', cursive, sans-serif;
+  --font-rounded: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Pop Art Shadows & Borders */
+  --pop-shadow-teal: 4px 4px 0px var(--teal-deep);
+  --pop-shadow-cream: 4px 4px 0px rgba(34, 139, 132, 0.25);
+  --pop-shadow-card: 6px 6px 0px #228b84;
+  --pop-shadow-card-sm: 4px 4px 0px #228b84;
+
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-xl: 44px;
+  --radius-full: 9999px;
+
+  --header-height: 72px;
+  --max-width: 1200px;
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.65;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-page);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--teal-primary);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--bg-page);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--teal-dark);
+}
+
+::selection {
+  background: var(--cream-primary);
+  color: var(--teal-deep);
+}
+
+/* Typography Defaults */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--teal-dark);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Container & Sections */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.section {
+  padding: 5rem 0;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 3.5rem 0;
+  }
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3.5rem auto;
+}
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: var(--radius-full);
+  background: var(--cream-primary);
+  border: 2px solid var(--teal-primary);
+  color: var(--teal-deep);
+  font-family: var(--font-rounded);
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.section-title {
+  font-family: var(--font-bubble);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  color: var(--teal-primary);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0px var(--teal-deep);
+}
+
+.section-title-cream {
+  color: var(--cream-primary);
+  -webkit-text-stroke: 2px var(--teal-primary);
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0px var(--teal-deep);
+}
+
+.section-subtitle {
+  color: var(--text-main);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Pop-Art Bubble Typography Classes */
+.bubble-text-cream {
+  font-family: var(--font-bubble);
+  color: var(--cream-primary);
+  -webkit-text-stroke: 3px var(--teal-primary);
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0px var(--teal-deep);
+  letter-spacing: 0.02em;
+}
+
+.bubble-text-teal {
+  font-family: var(--font-bubble);
+  color: var(--teal-primary);
+  letter-spacing: 0.03em;
+  text-shadow: 3px 3px 0px var(--cream-primary);
+}
+
+/* Pop Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.6rem;
+  font-family: var(--font-rounded);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--cream-primary);
+  color: var(--teal-deep);
+  border: 2.5px solid var(--teal-primary);
+  box-shadow: 3px 3px 0px var(--teal-primary);
+}
+
+.btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--teal-deep);
+  background: var(--cream-light);
+}
+
+.btn-primary:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px var(--teal-deep);
+}
+
+.btn-secondary {
+  background: var(--teal-primary);
+  color: var(--cream-primary);
+  border: 2.5px solid var(--teal-deep);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+}
+
+.btn-secondary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px var(--teal-deep);
+  background: var(--teal-dark);
+}
+
+.btn-outline {
+  background: #ffffff;
+  color: var(--teal-dark);
+  border: 2px solid var(--teal-primary);
+  box-shadow: 2px 2px 0px var(--teal-primary);
+}
+
+.btn-outline:hover {
+  background: var(--teal-soft);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--teal-dark);
+}
+
+/* Pop-Art Sticker Card */
+.pop-card {
+  background: var(--bg-card);
+  border: 3px solid var(--teal-primary);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--pop-shadow-card);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pop-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 8px 8px 0px var(--teal-deep);
+}
+
+/* Halftone Pattern Generator */
+.halftone-bg {
+  background-image: radial-gradient(var(--teal-dark) 15%, transparent 16%);
+  background-size: 14px 14px;
+  background-position: 0 0;
+  opacity: 0.35;
+}
+
+/* Tag Pill */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  background: var(--teal-soft);
+  color: var(--teal-deep);
+  font-family: var(--font-rounded);
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1.5px solid var(--teal-primary);
+}
+
+/* Keyframe Animations */
+@keyframes floatWobble {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(-1.5deg);
+  }
+}
+
+@keyframes popPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.animate-pop-float {
+  animation: floatWobble 4s ease-in-out infinite;
+}
+
+/* Accessibility: Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

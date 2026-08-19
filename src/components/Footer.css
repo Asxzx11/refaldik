@@ -1,0 +1,181 @@
+/* ==========================================================================
+   POP-ART FOOTER COMPONENT STYLES
+   ========================================================================== */
+
+.pop-footer {
+  position: relative;
+  background: var(--teal-soft);
+  border-top: 3.5px solid var(--teal-primary);
+  padding: 4.5rem 0 2rem 0;
+  margin-top: 4rem;
+}
+
+.pop-footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.2fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+@media (max-width: 900px) {
+  .pop-footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .pop-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Brand */
+.footer-pop-logo {
+  font-family: var(--font-bubble);
+  font-size: 1.5rem;
+  color: var(--teal-deep);
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.footer-pop-tagline {
+  color: var(--text-main);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 360px;
+  margin-bottom: 0.75rem;
+}
+
+.footer-wa-badge {
+  display: inline-block;
+}
+
+.footer-wa-link {
+  font-family: var(--font-rounded);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  background: var(--cream-primary);
+  border: 1.5px solid var(--teal-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  text-decoration: none;
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  transition: transform 0.15s ease;
+}
+
+.footer-wa-link:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+}
+
+/* Menu */
+.footer-heading {
+  font-family: var(--font-rounded);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  margin-bottom: 1rem;
+}
+
+.footer-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-menu a {
+  font-family: var(--font-rounded);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: all 0.15s ease;
+}
+
+.footer-menu a:hover {
+  color: var(--teal-deep);
+  transform: translateX(4px);
+  display: inline-block;
+}
+
+/* Social */
+.footer-social-stickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-sticker-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  background: var(--cream-primary);
+  border: 2px solid var(--teal-primary);
+  box-shadow: 2px 2px 0px var(--teal-primary);
+  border-radius: var(--radius-full);
+  font-family: var(--font-rounded);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--teal-deep);
+  transition: transform 0.15s ease;
+}
+
+.footer-sticker-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--teal-deep);
+}
+
+/* Bottom */
+.pop-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 2px dashed var(--teal-primary);
+}
+
+.footer-copy-text {
+  font-size: 0.88rem;
+  color: var(--text-main);
+}
+
+.footer-pill-tag {
+  background: var(--cream-primary);
+  border: 2px solid var(--teal-primary);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-bubble);
+  font-size: 0.82rem;
+  color: var(--teal-deep);
+}
+
+/* Floating Scroll Top */
+.pop-scroll-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--cream-primary);
+  border: 3px solid var(--teal-primary);
+  box-shadow: 3px 3px 0px var(--teal-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--teal-deep);
+  z-index: 900;
+  transition: transform 0.15s ease;
+}
+
+.pop-scroll-top-btn:hover {
+  transform: translate(-2px, -2px) scale(1.08);
+  box-shadow: 5px 5px 0px var(--teal-deep);
+}
