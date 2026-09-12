@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { portfolioData } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 import './Navbar.css';
 
 export default function Navbar() {
+  const { contacts } = usePortfolio();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeSec, setActiveSec] = useState('home');
+
+  const cleanWaNumber = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
+  const waUrl = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '#contact';
 
   const navLinks = [
     { name: 'Beranda', href: '#home' },
@@ -40,10 +45,10 @@ export default function Navbar() {
         {/* Logo */}
         <a href="#home" className="pop-nav-logo">
           <div className="logo-bubble-badge">
-            <span>R</span>
+            <span>P</span>
           </div>
           <span className="logo-bubble-text">
-            {portfolioData.personal.firstName}
+            {portfolioData.personal.firstName || 'Portofolio'}
             <span className="logo-bubble-accent">.</span>
           </span>
         </a>
@@ -68,14 +73,14 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        {/* CTA Right: Langsung ke WhatsApp */}
+        {/* CTA Right */}
         <div className="pop-nav-actions">
           <a
-            href="https://wa.me/6281378825542"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={waUrl}
+            target={cleanWaNumber ? '_blank' : '_self'}
+            rel={cleanWaNumber ? 'noopener noreferrer' : ''}
             className="btn btn-primary pop-nav-cta"
-            title="Chat langsung di WhatsApp (+6281378825542)"
+            title="Hubungi Saya"
           >
             <span>Hubungi Saya</span>
           </a>
@@ -110,13 +115,13 @@ export default function Navbar() {
           ))}
         </ul>
         <a
-          href="https://wa.me/6281378825542"
-          target="_blank"
-          rel="noopener noreferrer"
+          href={waUrl}
+          target={cleanWaNumber ? '_blank' : '_self'}
+          rel={cleanWaNumber ? 'noopener noreferrer' : ''}
           className="btn btn-primary full-width"
           onClick={() => setIsMobileOpen(false)}
         >
-          Hubungi Saya (WhatsApp)
+          Hubungi Saya
         </a>
       </div>
     </header>

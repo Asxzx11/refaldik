@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { portfolioData } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 import SocialLinks from './SocialLinks';
 import './Footer.css';
 
 export default function Footer() {
   const { personal } = portfolioData;
+  const { contacts } = usePortfolio();
   const currentYear = new Date().getFullYear();
   const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const cleanWaNumber = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
+  const hasAnySocial = Boolean(
+    contacts?.instagram || contacts?.tiktok || contacts?.youtube || contacts?.whatsapp
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,16 +37,18 @@ export default function Footer() {
               <span>{personal.name}</span>
             </a>
             <p className="footer-pop-tagline">{personal.tagline}</p>
-            <div className="footer-wa-badge">
-              <a
-                href="https://wa.me/6281378825542"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-wa-link"
-              >
-                <span>WhatsApp: {personal.whatsapp}</span>
-              </a>
-            </div>
+            {cleanWaNumber && (
+              <div className="footer-wa-badge">
+                <a
+                  href={`https://wa.me/${cleanWaNumber}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-wa-link"
+                >
+                  <span>WhatsApp: {contacts.whatsapp}</span>
+                </a>
+              </div>
+            )}
           </div>
 
           {/* Nav Links */}
@@ -57,7 +66,11 @@ export default function Footer() {
           <div className="footer-social-side">
             <h4 className="footer-heading">Media Sosial</h4>
             <div className="footer-social-row-wrap">
-              <SocialLinks />
+              {hasAnySocial ? (
+                <SocialLinks />
+              ) : (
+                <span className="footer-empty-social">Belum ada akun medsos</span>
+              )}
             </div>
           </div>
         </div>

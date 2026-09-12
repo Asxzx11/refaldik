@@ -1,34 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { portfolioData } from '../data/portfolioData';
 import { usePortfolio } from '../context/PortfolioContext';
 import SocialLinks from './SocialLinks';
 import './Hero.css';
 
-// Real Transparent Assets
-import halftoneTextureImg from '../assets/halftone-texture.png';
-import dreamTextImg from '../assets/dream-text.png';
-import profileCutoutImg from '../assets/profile-cutout.png';
-import stickersTextImg from '../assets/stickers-text.png';
+// Helper: Bersihkan path foto profil
+const cleanPath = (url) => {
+  if (!url) return '';
+  if (typeof url !== 'string') return '';
+  if (
+    url.startsWith('http://') ||
+    url.startsWith('https://') ||
+    url.startsWith('blob:') ||
+    url.startsWith('data:')
+  ) {
+    return url;
+  }
+  if (url.startsWith('public/')) return '/' + url.slice(7);
+  if (url.startsWith('/public/')) return url.slice(7);
+  if (!url.startsWith('/')) return '/' + url;
+  return url;
+};
 
 export default function Hero() {
   const { personal } = portfolioData;
-  const { aboutMe } = usePortfolio();
+  const { aboutMe, profilePhoto, contacts, setIsAdminOpen, setAdminTab } = usePortfolio();
 
-  // Mouse move parallax interaction state
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
+  const hasAnySocial = Boolean(
+    contacts?.instagram || contacts?.tiktok || contacts?.youtube || contacts?.whatsapp
+  );
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    setMousePos({ x, y });
-  };
-
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setMousePos({ x: 0, y: 0 });
+  const handleOpenAdminPhoto = () => {
+    setAdminTab('about');
+    setIsAdminOpen(true);
   };
 
   return (
@@ -40,80 +44,54 @@ export default function Hero() {
       {/* STRUKTUR UTAMA: Grid 2 Kolom Seimbang */}
       <div className="hero-pop-container">
         {/* =================================================================
-            1. KOLOM KIRI: FLAT TRANSPARENT ASSET STACK (STIKER PALING DEPAN)
+            1. KOLOM KIRI: SATU FOTO POLOS 1:1 (SQUARE ROUNDED BOX)
             ================================================================= */}
         <div className="hero-visual-column">
-          <div
-            className="hero-flat-artwork-box"
-            onMouseMove={handleMouseMove}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            {/* Layer 1: Background Texture (z-index 1) */}
-            <img
-              src={halftoneTextureImg}
-              alt="Halftone Background"
-              className="hero-flat-layer layer-texture"
-              style={{
-                transform: isHovered
-                  ? `translate3d(${mousePos.x * -5}px, ${mousePos.y * -5}px, 0)`
-                  : 'translate3d(0, 0, 0)',
-              }}
-            />
-
-            {/* Layer 2: Typography DREAM (z-index 10) */}
-            <img
-              src={dreamTextImg}
-              alt="DREAM Typography"
-              className="hero-flat-layer layer-dream animate-dream-float"
-              style={{
-                transform: isHovered
-                  ? `translate3d(${mousePos.x * 8}px, ${mousePos.y * 8}px, 0)`
-                  : 'translate3d(0, 0, 0)',
-              }}
-            />
-
-            {/* Layer 3: Profile Cutout Foto (z-index 20) */}
-            <img
-              src={profileCutoutImg}
-              alt={personal.name}
-              className="hero-flat-layer layer-profile"
-              style={{
-                transform: isHovered
-                  ? `translate3d(${mousePos.x * -12}px, ${mousePos.y * -12}px, 0) scale(1.02)`
-                  : 'translate3d(0, 0, 0) scale(1)',
-              }}
-            />
-
-            {/* Layer 4: Stickers Text - WAJIB PALING DEPAN (z-index 30) */}
-            <img
-              src={stickersTextImg}
-              alt="Stickers Text"
-              className="hero-flat-layer layer-stickers animate-sticker-wobble"
-              style={{
-                transform: isHovered
-                  ? `translate3d(${mousePos.x * 6}px, ${mousePos.y * 6}px, 0)`
-                  : 'translate3d(0, 0, 0)',
-              }}
-            />
+          <div className="hero-photo-frame pop-card">
+            {profilePhoto ? (
+              <img
+                src={cleanPath(profilePhoto)}
+                alt={personal?.name || 'Foto Profil'}
+                className="hero-photo-img"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.style.display = 'none';
+                }}
+              />
+            ) : (
+              <div
+                className="hero-photo-empty-box"
+                onClick={handleOpenAdminPhoto}
+                title="Klik untuk mengatur Foto Profil di Admin Panel (Ctrl + Shift + B)"
+              >
+                <div className="empty-avatar-circle">
+                  <span className="empty-avatar-icon">👤</span>
+                </div>
+                <div className="empty-avatar-text">
+                  <span className="empty-title">Foto Profil (1:1)</span>
+                  <span className="empty-sub">Atur via Admin Panel</span>
+                  <kbd className="empty-shortcut-kbd">Ctrl+Shift+B</kbd>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
         {/* =================================================================
-            2. KOLOM KANAN: TEKS & TOMBOL (HTML MURNI)
+            2. KOLOM KANAN: TEKS & TOMBOL
             ================================================================= */}
         <div className="hero-info-column">
           {/* Top Big Name Typography */}
           <div className="hero-headline-box">
             <div className="headline-ambient-flare" />
-            <h1 className="name-line name-first">{personal.nameLine1 || 'REFALDI'}</h1>
-            <h1 className="name-line name-last">{personal.nameLine2 || 'KURNIAWAN'}</h1>
+            <h1 className="name-line name-first">{personal?.nameLine1 || 'PORTOFOLIO'}</h1>
+            <h1 className="name-line name-last">{personal?.nameLine2 || 'KREATIF'}</h1>
           </div>
 
           {/* Section: ABOUT ME (Real-time synced from Context & LocalStorage) */}
           <div className="hero-about-box">
-            <h3 className="about-title">{personal.aboutHeading || 'ABOUT ME'}</h3>
-            <p className="about-paragraph">{aboutMe || personal.aboutDescription}</p>
+            <h3 className="about-title">{personal?.aboutHeading || 'ABOUT ME'}</h3>
+            <p className="about-paragraph">{aboutMe || personal?.aboutDescription}</p>
           </div>
 
           {/* Action Buttons */}
@@ -121,23 +99,18 @@ export default function Hero() {
             <a href="#karya" className="btn btn-primary">
               <span>Lihat Karya</span>
             </a>
-            <a
-              href="/images/CV.png"
-              target="_blank"
-              rel="noopener noreferrer"
-              download="CV_Refaldi_Kurniawan.png"
-              className="btn btn-outline"
-              title="Unduh Curriculum Vitae (CV) Refaldi"
-            >
-              <span>Unduh CV</span>
+            <a href="#contact" className="btn btn-outline">
+              <span>Hubungi Saya</span>
             </a>
           </div>
 
-          {/* Social Media Links with Instagram Dropdown */}
-          <div className="hero-social-row">
-            <span className="social-label">Media Sosial:</span>
-            <SocialLinks />
-          </div>
+          {/* Social Media Links (Dynamic & Real-time) */}
+          {hasAnySocial && (
+            <div className="hero-social-row">
+              <span className="social-label">Media Sosial:</span>
+              <SocialLinks />
+            </div>
+          )}
         </div>
       </div>
     </section>

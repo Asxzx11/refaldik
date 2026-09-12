@@ -1,27 +1,24 @@
 import { karyaCategories, karyaData } from './karyaData';
 
 export const portfolioData = {
-  // Informasi Profil Sesuai Permintaan
+  // Informasi Profil Template Baru
   personal: {
     name: "Refaldi Kurniawan",
     firstName: "Refaldi",
     lastName: "Kurniawan",
-    nameLine1: "REFALDI",
-    nameLine2: "KURNIAWAN",
+    nameLine1: "PORTOFOLIO",
+    nameLine2: "KREATIF",
     role: "Digital Creative Specialist & Visual Creator",
     tagline: "Video Editing • Visual Design • Social Media Branding",
     aboutHeading: "ABOUT ME",
     aboutDescription:
-      "Memiliki ketertarikan pada bidang kreatif digital seperti editing video, desain visual, branding media sosial, serta penerjemahan dasar Indonesia–Inggris. Terbiasa mempelajari software dan teknik kreatif secara otodidak, serta pernah membuka jasa/komisi mandiri untuk kebutuhan editing dan desain.",
-    location: "Indonesia",
-    whatsapp: "+6281378825542",
-    whatsappUrl: "https://wa.me/6281378825542",
-    instagramAccounts: [
-      { label: "Akun Utama", handle: "@popchalant.id", url: "https://www.instagram.com/popchalant.id/" },
-      { label: "Akun Pribadi", handle: "@refall.burger", url: "https://www.instagram.com/refall.burger/" },
-    ],
-    youtubeUrl: "https://www.youtube.com/@whoisgonnathingkingabtdiz",
-    tiktokUrl: "https://www.tiktok.com/@popchalant",
+      "Selamat datang di portofolio kreatif saya! Saya berfokus pada editing video dinamis, motion graphic, dan desain visual kreatif. Silakan sesuaikan deskripsi ini melalui Secret Admin Panel (Ctrl + Shift + B).",
+    location: "",
+    whatsapp: "",
+    whatsappUrl: "",
+    instagramAccounts: [],
+    youtubeUrl: "",
+    tiktokUrl: "",
   },
 
   // Elemen Dekoratif Hero
@@ -31,34 +28,7 @@ export const portfolioData = {
     quote2: "fun things\nare fun!",
   },
 
-  // 1. Bagian Video Perkenalan
-  videoIntro: {
-    badge: "VIDEO PERKENALAN",
-    title: "Tonton Video Perkenalan Diri",
-    subtitle: "Video singkat yang memperkenalkan diri saya, minat di bidang kreatif digital, dan proses pembuatan karya.",
-    videoType: "file",
-    videoUrl: "",
-    videoFileUrl: "/introvid/intro.mp4",
-    highlights: [
-      {
-        number: "01",
-        title: "Video Editing & Storytelling",
-        desc: "Penyusunan alur cerita visual dengan ritme dinamis dan efek transisi yang pas.",
-      },
-      {
-        number: "02",
-        title: "Desain Visual & Branding",
-        desc: "Eksplorasi tata letak, warna pop-art, dan identitas visual yang khas.",
-      },
-      {
-        number: "03",
-        title: "Penerjemahan ID-EN",
-        desc: "Pemahaman konteks bahasa untuk subtitle dan komunikasi bilingual.",
-      },
-    ],
-  },
-
-  // 2. Bagian Skill & Keahlian
+  // Bagian Skill & Keahlian
   skills: [
     {
       name: "Video Editing & Post-Production",
@@ -98,15 +68,15 @@ export const portfolioData = {
     },
   ],
 
-  // 3. Bagian Galeri Karya / Portofolio
+  // Bagian Galeri Karya / Portofolio
   karyaCategories,
   karya: karyaData,
 
-  // 4. Bagian Kontak
+  // Bagian Kontak
   contact: {
     badge: "HUBUNGI SAYA",
     title: "Tertarik Berkolaborasi atau Ingin Memesan Jasa?",
-    subtitle: "Pintu komunikasi selalu terbuka untuk tawaran proyek video editing, desain visual, komisi kreatif, atau sekadar bertukar ide.",
-    whatsappMessage: "Halo Refaldi! Saya melihat portofolio kreatif Anda dan tertarik untuk berdiskusi/memesan jasa.",
+    subtitle: "Pintu komunikasi selalu terbuka untuk tawaran proyek kreatif, kolaborasi visual, atau sekadar berdiskusi.",
+    whatsappMessage: "Halo! Saya melihat portofolio Anda dan tertarik untuk berdiskusi/memesan jasa.",
   },
 };

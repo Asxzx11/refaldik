@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SOCIAL LINKS WITH INSTAGRAM DROPDOWN POPOVER
+   DYNAMIC SOCIAL LINKS STYLES
    ========================================================================== */
 
 .social-links-wrapper {
@@ -8,11 +8,6 @@
   gap: 0.5rem;
   flex-wrap: wrap;
   position: relative;
-}
-
-.social-dropdown-container {
-  position: relative;
-  display: inline-block;
 }
 
 .social-pill-btn {
@@ -40,72 +35,36 @@
   color: var(--teal-dark);
 }
 
-.ig-toggle-btn.active {
-  background: var(--teal-primary);
-  color: var(--cream-primary);
-  box-shadow: 3px 3px 0px var(--teal-deep);
-}
-
-.dropdown-caret {
-  font-size: 0.75rem;
-  margin-left: 0.15rem;
+.social-arrow-icon {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--teal-primary);
   transition: transform 0.15s ease;
 }
 
-/* Popover Dropdown Menu */
-.social-popover-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  min-width: 220px;
-  background: #ffffff;
-  border: 2.5px solid var(--teal-primary);
-  box-shadow: 5px 5px 0px var(--teal-deep);
-  border-radius: var(--radius-md);
-  padding: 0.4rem 0;
-  z-index: 1000;
+.social-pill-btn:hover .social-arrow-icon {
+  transform: translate(1px, -1px);
 }
 
-.social-popover-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.6rem 0.9rem;
-  text-decoration: none;
-  transition: background-color 0.15s ease;
+.wa-social-pill {
+  border-color: #10b981;
+  color: #065f46;
 }
 
-.social-popover-item:hover {
+.wa-social-pill:hover {
+  background: #ecfdf5;
+  box-shadow: 4px 4px 0px #047857;
+}
+
+.social-links-empty {
+  display: inline-flex;
+}
+
+.social-empty-badge {
+  font-size: 0.78rem;
+  color: var(--text-muted);
   background: var(--teal-soft);
-}
-
-.popover-item-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.popover-title {
-  font-family: var(--font-rounded);
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--teal-deep);
-}
-
-.popover-handle {
-  font-size: 0.75rem;
-  color: var(--teal-dark);
-  font-weight: 500;
-}
-
-.popover-arrow {
-  font-size: 0.95rem;
-  font-weight: bold;
-  color: var(--teal-primary);
-}
-
-.social-popover-divider {
-  height: 1px;
-  background: var(--teal-soft);
-  margin: 0.2rem 0;
-  border-top: 1px dashed var(--teal-primary);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-full);
+  border: 1px dashed var(--teal-primary);
 }

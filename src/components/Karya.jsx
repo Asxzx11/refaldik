@@ -168,11 +168,11 @@ export default function Karya() {
               type="button"
               className="btn-backup-admin-trigger"
               onClick={handleOpenAdminPanel}
-              title="Buka Secret Admin Panel (Shortcut: Ctrl + Shift + P)"
+              title="Buka Secret Admin Panel (Shortcut: Ctrl + Shift + B)"
             >
               <span className="admin-key-icon">🔐</span>
               <span>Admin Panel</span>
-              <kbd className="admin-shortcut-kbd">Ctrl+Shift+P</kbd>
+              <kbd className="admin-shortcut-kbd">Ctrl+Shift+B</kbd>
             </button>
 
             <button

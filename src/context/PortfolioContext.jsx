@@ -7,6 +7,16 @@ const PortfolioContext = createContext(null);
 export const STORAGE_KEYS = {
   ABOUT_ME: 'portfolio_about_me',
   KARYA_DATA: 'portfolio_karya_data',
+  PROFILE_PHOTO: 'portfolio_profile_photo',
+  CONTACTS: 'portfolio_contacts',
+};
+
+const defaultContacts = {
+  whatsapp: '',
+  location: '',
+  instagram: '',
+  tiktok: '',
+  youtube: '',
 };
 
 export function PortfolioProvider({ children }) {
@@ -23,7 +33,36 @@ export function PortfolioProvider({ children }) {
     return portfolioData.personal?.aboutDescription || '';
   });
 
-  // 2. State Karya dengan sinkronisasi localStorage
+  // 2. State Foto Profil (Square 1:1) dengan sinkronisasi localStorage
+  const [profilePhoto, setProfilePhotoState] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.PROFILE_PHOTO);
+      if (saved !== null && saved !== undefined) {
+        return saved;
+      }
+    } catch (e) {
+      console.warn('Gagal membaca portfolio_profile_photo dari localStorage:', e);
+    }
+    return '';
+  });
+
+  // 3. State Kontak & Sosial Media dengan sinkronisasi localStorage
+  const [contacts, setContactsState] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.CONTACTS);
+      if (saved !== null && saved !== undefined) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') {
+          return { ...defaultContacts, ...parsed };
+        }
+      }
+    } catch (e) {
+      console.warn('Gagal membaca portfolio_contacts dari localStorage:', e);
+    }
+    return defaultContacts;
+  });
+
+  // 4. State Karya dengan sinkronisasi localStorage
   const [karyaList, setKaryaListState] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.KARYA_DATA);
@@ -39,11 +78,11 @@ export function PortfolioProvider({ children }) {
     return defaultKaryaData || [];
   });
 
-  // 3. State Modal Secret Admin Panel & Tab Aktif
+  // 5. State Modal Secret Admin Panel & Tab Aktif ('about' | 'contacts' | 'karya')
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [adminTab, setAdminTab] = useState('about'); // 'about' | 'karya'
+  const [adminTab, setAdminTab] = useState('about');
 
-  // 4. State Notifikasi Toast
+  // 6. State Notifikasi Toast
   const [toastMessage, setToastMessage] = useState(null);
 
   const showToast = (msg) => {
@@ -74,6 +113,50 @@ export function PortfolioProvider({ children }) {
       console.error('Gagal reset About Me di localStorage:', e);
     }
     showToast('🔄 Deskripsi "About Me" telah dikembalikan ke teks bawaan!');
+  };
+
+  // Updaters Foto Profil
+  const updateProfilePhoto = (newPhotoUrl) => {
+    const trimmed = typeof newPhotoUrl === 'string' ? newPhotoUrl.trim() : '';
+    setProfilePhotoState(trimmed);
+    try {
+      localStorage.setItem(STORAGE_KEYS.PROFILE_PHOTO, trimmed);
+    } catch (e) {
+      console.error('Gagal menyimpan foto profil ke localStorage:', e);
+    }
+    showToast('🖼️ Foto Profil berhasil diperbarui!');
+  };
+
+  const removeProfilePhoto = () => {
+    setProfilePhotoState('');
+    try {
+      localStorage.removeItem(STORAGE_KEYS.PROFILE_PHOTO);
+    } catch (e) {
+      console.error('Gagal menghapus foto profil dari localStorage:', e);
+    }
+    showToast('🗑️ Foto Profil berhasil dikosongkan!');
+  };
+
+  // Updaters Kontak & Sosial Media
+  const updateContacts = (newContacts) => {
+    const merged = { ...contacts, ...newContacts };
+    setContactsState(merged);
+    try {
+      localStorage.setItem(STORAGE_KEYS.CONTACTS, JSON.stringify(merged));
+    } catch (e) {
+      console.error('Gagal menyimpan kontak ke localStorage:', e);
+    }
+    showToast('📱 Data Kontak & Sosial Media berhasil diperbarui!');
+  };
+
+  const resetContacts = () => {
+    setContactsState(defaultContacts);
+    try {
+      localStorage.setItem(STORAGE_KEYS.CONTACTS, JSON.stringify(defaultContacts));
+    } catch (e) {
+      console.error('Gagal reset kontak ke localStorage:', e);
+    }
+    showToast('🔄 Kontak & Sosial Media berhasil dikosongkan!');
   };
 
   // Updaters Karya
@@ -113,20 +196,21 @@ export function PortfolioProvider({ children }) {
     updateKaryaList(defaultKaryaData, '🔄 Data karya berhasil direset ke template kosong (default)!');
   };
 
-  // 5. Global Keyboard Shortcut Listener (Ctrl + Shift + P / Cmd + Shift + P)
+  // 7. Global Keyboard Shortcut Listener (Ctrl + Shift + B & Ctrl + Shift + P / Cmd + Shift + B / P)
   useEffect(() => {
     const handleKeyDown = (e) => {
       const isCmdOrCtrl = e.ctrlKey || e.metaKey;
       const isShift = e.shiftKey;
+      const isKeyB = e.key === 'b' || e.key === 'B' || e.code === 'KeyB';
       const isKeyP = e.key === 'p' || e.key === 'P' || e.code === 'KeyP';
 
-      if (isCmdOrCtrl && isShift && isKeyP) {
+      if (isCmdOrCtrl && isShift && (isKeyB || isKeyP)) {
         e.preventDefault();
         e.stopPropagation();
         setIsAdminOpen((prev) => {
           const next = !prev;
           if (next) {
-            showToast('🔐 Secret Admin Panel terbuka! (Ctrl + Shift + P)');
+            showToast('🔐 Secret Admin Panel terbuka! (Ctrl + Shift + B)');
           }
           return next;
         });
@@ -143,6 +227,12 @@ export function PortfolioProvider({ children }) {
         aboutMe,
         updateAboutMe,
         resetAboutMe,
+        profilePhoto,
+        updateProfilePhoto,
+        removeProfilePhoto,
+        contacts,
+        updateContacts,
+        resetContacts,
         karyaList,
         updateKaryaList,
         addKarya,

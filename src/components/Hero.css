@@ -1,5 +1,5 @@
 /* ==========================================================================
-   POP-ART HERO SECTION (FLAT ASSET STACK - STIKER DI PALING DEPAN)
+   POP-ART HERO SECTION (CLEAN 1:1 SQUARE ROUNDED PROFILE PHOTO)
    ========================================================================== */
 
 .hero-pop-section {
@@ -30,7 +30,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1fr 1.15fr;
   gap: 3.5rem;
   align-items: center;
   max-width: 1200px;
@@ -47,7 +47,7 @@
 }
 
 /* ==========================================================================
-   KOLOM KIRI: FLAT TRANSPARENT ASSET BOX (URUTAN Z-INDEX PRESISI)
+   KOLOM KIRI: SATU FOTO POLOS 1:1 (SQUARE ROUNDED POP-CARD)
    ========================================================================== */
 
 .hero-visual-column {
@@ -57,99 +57,118 @@
   width: 100%;
 }
 
-.hero-flat-artwork-box {
-  position: relative;
+.hero-photo-frame {
   width: 100%;
-  max-width: 450px;
+  max-width: 420px;
   aspect-ratio: 1 / 1;
-  margin: 0 auto;
-  cursor: pointer;
-  user-select: none;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-  overflow: visible;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 4px solid var(--teal-primary);
+  box-shadow: 8px 8px 0px var(--teal-deep);
+  background: #ffffff;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-@media (max-width: 1024px) {
-  .hero-flat-artwork-box {
-    max-width: 380px;
-  }
+.hero-photo-frame:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 11px 11px 0px var(--teal-deep);
 }
 
-@media (max-width: 480px) {
-  .hero-flat-artwork-box {
-    max-width: 310px;
-  }
-}
-
-/* Flat Layers */
-.hero-flat-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
+.hero-photo-img {
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
-  will-change: transform;
+  object-fit: cover;
   display: block;
 }
 
-/* 1. Texture Background (Paling Belakang) */
-.layer-texture {
-  object-fit: cover;
-  z-index: 1;
+/* Empty State / Placeholder Avatar Frame */
+.hero-photo-empty-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--cream-primary) 0%, var(--teal-soft) 100%);
+  cursor: pointer;
+  padding: 1.5rem;
+  text-align: center;
+  gap: 0.85rem;
+  user-select: none;
+  transition: background 0.2s ease;
 }
 
-/* 2. DREAM Typography Bubble */
-.layer-dream {
-  object-fit: contain;
-  z-index: 10;
+.hero-photo-empty-box:hover {
+  background: linear-gradient(135deg, #ffffff 0%, var(--cream-primary) 100%);
 }
 
-/* 3. Cutout Foto Refaldi */
-.layer-profile {
-  object-fit: cover;
-  z-index: 20;
+.empty-avatar-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px dashed var(--teal-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 3px 0px var(--teal-primary);
 }
 
-/* 4. Stickers Text (PALING DEPAN - Menimpa di Atas Baju) */
-.layer-stickers {
-  object-fit: contain;
-  z-index: 30;
+.empty-avatar-icon {
+  font-size: 2.75rem;
 }
 
-/* Animasi Floating & Wobble */
-@keyframes dreamFloat {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+.empty-avatar-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.empty-title {
+  font-family: var(--font-rounded);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--teal-deep);
+}
+
+.empty-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.empty-shortcut-kbd {
+  background: var(--teal-deep);
+  color: var(--cream-primary);
+  font-family: monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 480px) {
+  .hero-photo-frame {
+    max-width: 300px;
+    border-radius: 22px;
   }
-  50% {
-    transform: translateY(-5px) rotate(-0.5deg);
-  }
-}
 
-.animate-dream-float {
-  animation: dreamFloat 5s ease-in-out infinite;
-}
-
-@keyframes stickerWobble {
-  0%, 100% {
-    transform: translateY(0px) scale(1);
+  .empty-avatar-circle {
+    width: 70px;
+    height: 70px;
   }
-  50% {
-    transform: translateY(-3px) scale(1.015);
-  }
-}
 
-.animate-sticker-wobble {
-  animation: stickerWobble 4s ease-in-out infinite;
+  .empty-avatar-icon {
+    font-size: 2.2rem;
+  }
 }
 
 /* ==========================================================================
-   KOLOM KANAN: TEKS & TOMBOL (HTML MURNI)
+   KOLOM KANAN: TEKS & TOMBOL
    ========================================================================== */
 
 .hero-info-column {
@@ -188,20 +207,6 @@
 @keyframes flarePulse {
   0% { transform: scale(0.9); opacity: 0.6; }
   100% { transform: scale(1.2); opacity: 1; }
-}
-
-.greeting-line {
-  position: relative;
-  z-index: 1;
-  font-family: var(--font-bubble);
-  font-size: clamp(1.4rem, 2.8vw, 2rem);
-  color: var(--cream-primary);
-  -webkit-text-stroke: 2px var(--teal-primary);
-  paint-order: stroke fill;
-  text-shadow: 3px 3px 0px var(--teal-dark);
-  letter-spacing: 0.04em;
-  margin-bottom: 0.25rem;
-  text-transform: uppercase;
 }
 
 .name-line {
@@ -246,6 +251,7 @@
   line-height: 1.75;
   font-weight: 500;
   text-align: justify;
+  white-space: pre-line;
 }
 
 @media (max-width: 1024px) {
@@ -288,31 +294,4 @@
   font-weight: 700;
   color: var(--teal-deep);
   text-transform: uppercase;
-}
-
-.social-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.social-pill-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.35rem 0.85rem;
-  border-radius: var(--radius-full);
-  background: var(--cream-primary);
-  border: 2px solid var(--teal-primary);
-  box-shadow: 2px 2px 0px var(--teal-primary);
-  font-family: var(--font-rounded);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--teal-deep);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.social-pill-btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px var(--teal-deep);
-  background: var(--cream-light);
 }

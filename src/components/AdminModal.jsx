@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
 import { karyaCategories } from '../data/karyaData';
 import './AdminModal.css';
@@ -26,6 +26,12 @@ export default function AdminModal() {
     aboutMe,
     updateAboutMe,
     resetAboutMe,
+    profilePhoto,
+    updateProfilePhoto,
+    removeProfilePhoto,
+    contacts,
+    updateContacts,
+    resetContacts,
     karyaList,
     updateKaryaList,
     addKarya,
@@ -39,13 +45,31 @@ export default function AdminModal() {
     showToast,
   } = usePortfolio();
 
-  // State Form Edit About Me
+  // State Form Edit Profil & About Me
   const [aboutInput, setAboutInput] = useState(aboutMe);
+  const [photoInput, setPhotoInput] = useState(profilePhoto || '');
 
-  // Sync state input saat modal dibuka atau saat aboutMe di context berubah
-  React.useEffect(() => {
+  // State Form Edit Kontak & Sosmed
+  const [contactInputs, setContactInputs] = useState({
+    whatsapp: '',
+    location: '',
+    instagram: '',
+    tiktok: '',
+    youtube: '',
+  });
+
+  // Sync state saat modal dibuka atau saat context berubah
+  useEffect(() => {
     setAboutInput(aboutMe);
-  }, [aboutMe, isAdminOpen]);
+    setPhotoInput(profilePhoto || '');
+    setContactInputs({
+      whatsapp: contacts?.whatsapp || '',
+      location: contacts?.location || '',
+      instagram: contacts?.instagram || '',
+      tiktok: contacts?.tiktok || '',
+      youtube: contacts?.youtube || '',
+    });
+  }, [aboutMe, profilePhoto, contacts, isAdminOpen]);
 
   // State Tab Kelola Karya: Search & Filter
   const [searchQuery, setSearchQuery] = useState('');
@@ -97,10 +121,12 @@ export default function AdminModal() {
     });
   }, [karyaList, searchQuery, selectedCategoryFilter]);
 
-  // Handle Simpan About Me
-  const handleSaveAbout = (e) => {
+  // Handle Simpan Profil & About Me
+  const handleSaveProfileAbout = (e) => {
     e.preventDefault();
     updateAboutMe(aboutInput);
+    updateProfilePhoto(photoInput);
+    showToast('✨ Profil, Foto & About Me berhasil disimpan!');
   };
 
   // Handle Reset About Me
@@ -110,6 +136,30 @@ export default function AdminModal() {
     );
     if (confirmReset) {
       resetAboutMe();
+    }
+  };
+
+  // Handle Simpan Kontak & Sosmed
+  const handleSaveContacts = (e) => {
+    e.preventDefault();
+    updateContacts(contactInputs);
+    showToast('📱 Data Kontak & Sosial Media berhasil disimpan!');
+  };
+
+  // Handle Kosongkan Kontak
+  const handleResetContacts = () => {
+    const confirmReset = window.confirm(
+      'Apakah Anda yakin ingin mengosongkan seluruh data kontak & sosial media?'
+    );
+    if (confirmReset) {
+      resetContacts();
+      setContactInputs({
+        whatsapp: '',
+        location: '',
+        instagram: '',
+        tiktok: '',
+        youtube: '',
+      });
     }
   };
 
@@ -198,10 +248,10 @@ export default function AdminModal() {
     deleteKarya(id, title);
   };
 
-  // Handle Reset Data Karya ke Default Template (karyaData.js = [])
+  // Handle Reset Data Karya
   const handleResetKarya = () => {
     const confirmReset = window.confirm(
-      '⚠️ PERINGATAN: Apakah Anda yakin ingin mereset seluruh data karya ke bawaan template?\n\nSemua karya lokal akan dikosongkan/dikembalikan ke template awal.'
+      '⚠️ PERINGATAN: Apakah Anda yakin ingin mereset seluruh data karya ke bawaan template kosong?\n\nSemua karya lokal akan dikosongkan/dikembalikan ke template awal.'
     );
     if (!confirmReset) return;
     resetKarya();
@@ -268,11 +318,11 @@ export default function AdminModal() {
           <div className="admin-header-title-box">
             <div className="admin-badge-row">
               <span className="admin-badge-pulse">● LIVE ADMIN</span>
-              <span className="admin-shortcut-pill">Shortcut: Ctrl + Shift + P</span>
+              <span className="admin-shortcut-pill">Shortcut: Ctrl + Shift + B</span>
             </div>
             <h3 className="admin-modal-title">🔐 Secret Admin Panel</h3>
             <p className="admin-modal-subtitle">
-              Kelola deskripsi About Me & manajemen data karya (CRUD) dengan sinkronisasi real-time dan persisten.
+              Kelola Foto Profil (1:1), Teks About Me, Kontak WhatsApp & Sosmed, serta Manajemen Karya secara real-time.
             </p>
           </div>
 
@@ -299,7 +349,7 @@ export default function AdminModal() {
         </div>
 
         {/* ===================================================================
-            TAB SELECTOR: TAB 1 (ABOUT ME) & TAB 2 (KELOLA KARYA)
+            TAB SELECTOR: TAB 1 (PROFIL & ABOUT), TAB 2 (KONTAK & SOSMED), TAB 3 (KARYA)
             =================================================================== */}
         <div className="admin-main-tabs">
           <button
@@ -307,8 +357,16 @@ export default function AdminModal() {
             className={`admin-main-tab-btn ${adminTab === 'about' ? 'active' : ''}`}
             onClick={() => setAdminTab('about')}
           >
-            <span className="tab-icon">📝</span>
-            <span>Edit About Me</span>
+            <span className="tab-icon">👤</span>
+            <span>Profil & About Me</span>
+          </button>
+          <button
+            type="button"
+            className={`admin-main-tab-btn ${adminTab === 'contacts' ? 'active' : ''}`}
+            onClick={() => setAdminTab('contacts')}
+          >
+            <span className="tab-icon">📱</span>
+            <span>Kontak & Sosial Media</span>
           </button>
           <button
             type="button"
@@ -321,14 +379,45 @@ export default function AdminModal() {
         </div>
 
         {/* ===================================================================
-            TAB CONTENT 1: EDIT ABOUT ME
+            TAB CONTENT 1: EDIT PROFIL & ABOUT ME
             =================================================================== */}
         {adminTab === 'about' && (
           <div className="admin-tab-content-about">
             <div className="admin-about-layout">
               {/* Kolom Form Input */}
               <div className="admin-about-form-col">
-                <form onSubmit={handleSaveAbout} className="admin-about-form">
+                <form onSubmit={handleSaveProfileAbout} className="admin-about-form">
+                  {/* Foto Profil Input */}
+                  <div className="admin-form-group">
+                    <label htmlFor="admin-photo-input" className="admin-field-label">
+                      Path / URL Foto Profil (Rasio 1:1):
+                    </label>
+                    <div className="admin-photo-input-row">
+                      <input
+                        type="text"
+                        id="admin-photo-input"
+                        className="pop-input font-mono-input"
+                        value={photoInput}
+                        onChange={(e) => setPhotoInput(e.target.value)}
+                        placeholder="/images/foto.png atau https://..."
+                      />
+                      {photoInput && (
+                        <button
+                          type="button"
+                          className="btn-clear-photo"
+                          onClick={() => setPhotoInput('')}
+                          title="Hapus / Kosongkan foto"
+                        >
+                          ✕ Kosongkan
+                        </button>
+                      )}
+                    </div>
+                    <span className="admin-field-hint">
+                      💡 Masukkan path file dari folder <code>public/images/</code> (misal: <code>/images/profile.png</code>) atau link gambar online.
+                    </span>
+                  </div>
+
+                  {/* Deskripsi About Me Input */}
                   <div className="admin-form-group">
                     <label htmlFor="admin-about-text" className="admin-field-label">
                       Teks Deskripsi "About Me":
@@ -336,7 +425,7 @@ export default function AdminModal() {
                     <textarea
                       id="admin-about-text"
                       className="pop-textarea admin-about-textarea"
-                      rows="8"
+                      rows="7"
                       value={aboutInput}
                       onChange={(e) => setAboutInput(e.target.value)}
                       placeholder="Tuliskan perkenalan diri, keahlian, dan minat Anda..."
@@ -344,7 +433,7 @@ export default function AdminModal() {
                     />
                     <div className="admin-textarea-meta">
                       <span>{aboutInput.length} karakter</span>
-                      <span>💡 Perubahan langsung tersimpan ke <code>localStorage</code> (key: <code>portfolio_about_me</code>)</span>
+                      <span>💾 Tersimpan otomatis ke <code>localStorage</code></span>
                     </div>
                   </div>
 
@@ -355,10 +444,10 @@ export default function AdminModal() {
                       onClick={handleResetAbout}
                       title="Kembalikan teks About Me ke teks bawaan"
                     >
-                      🔄 Reset ke Default
+                      🔄 Reset About Me
                     </button>
                     <button type="submit" className="btn btn-primary">
-                      💾 Simpan Perubahan About Me
+                      💾 Simpan Profil & About Me
                     </button>
                   </div>
                 </form>
@@ -367,16 +456,45 @@ export default function AdminModal() {
               {/* Kolom Live Preview */}
               <div className="admin-about-preview-col">
                 <div className="admin-preview-header-label">
-                  <span>👁️ Live Preview Tampilan Hero Section:</span>
+                  <span>👁️ Live Preview Hero Section:</span>
                 </div>
-                <div className="admin-hero-preview-card pop-card">
-                  <h4 className="preview-hero-title">ABOUT ME</h4>
-                  <p className="preview-hero-desc">
-                    {aboutInput.trim() ? aboutInput : '(Deskripsi About Me masih kosong)'}
-                  </p>
+
+                <div className="admin-hero-live-preview-wrap">
+                  {/* Preview Foto 1:1 */}
+                  <div className="admin-preview-photo-box">
+                    <label className="admin-sub-preview-label">Foto Profil (1:1):</label>
+                    <div className="admin-preview-avatar-frame pop-card">
+                      {photoInput ? (
+                        <img
+                          src={cleanPath(photoInput)}
+                          alt="Preview Foto Profil"
+                          className="admin-preview-avatar-img"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src =
+                              'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                          }}
+                        />
+                      ) : (
+                        <div className="admin-preview-avatar-empty">
+                          <span className="empty-icon-sm">👤</span>
+                          <span className="empty-label-sm">Placeholder Avatar</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Preview About Me Card */}
+                  <div className="admin-hero-preview-card pop-card">
+                    <h4 className="preview-hero-title">ABOUT ME</h4>
+                    <p className="preview-hero-desc">
+                      {aboutInput.trim() ? aboutInput : '(Deskripsi About Me masih kosong)'}
+                    </p>
+                  </div>
                 </div>
+
                 <div className="admin-preview-note">
-                  ✨ Begitu Anda menekan tombol simpan, teks di bagian atas halaman (Beranda/Hero) akan langsung terbarui secara instan tanpa perlu reload.
+                  ✨ Perubahan foto profil dan deskripsi About Me akan langsung tampil di Hero Section secara instan.
                 </div>
               </div>
             </div>
@@ -384,7 +502,163 @@ export default function AdminModal() {
         )}
 
         {/* ===================================================================
-            TAB CONTENT 2: KELOLA KARYA (CRUD)
+            TAB CONTENT 2: EDIT KONTAK & SOSIAL MEDIA
+            =================================================================== */}
+        {adminTab === 'contacts' && (
+          <div className="admin-tab-content-about">
+            <div className="admin-about-layout">
+              {/* Kolom Form Kontak & Sosmed */}
+              <div className="admin-about-form-col">
+                <form onSubmit={handleSaveContacts} className="admin-about-form">
+                  {/* WhatsApp */}
+                  <div className="admin-form-group">
+                    <label htmlFor="admin-input-wa" className="admin-field-label">
+                      📱 Nomor WhatsApp:
+                    </label>
+                    <input
+                      type="text"
+                      id="admin-input-wa"
+                      className="pop-input"
+                      value={contactInputs.whatsapp}
+                      onChange={(e) =>
+                        setContactInputs({ ...contactInputs, whatsapp: e.target.value })
+                      }
+                      placeholder="Contoh: +628123456789 atau 08123456789"
+                    />
+                    <span className="admin-field-hint">
+                      💡 Digunakan untuk tombol WhatsApp di Kontak, Navbar, dan tombol kirim pesan instan.
+                    </span>
+                  </div>
+
+                  {/* Domisili / Lokasi */}
+                  <div className="admin-form-group">
+                    <label htmlFor="admin-input-loc" className="admin-field-label">
+                      📍 Domisili / Lokasi:
+                    </label>
+                    <input
+                      type="text"
+                      id="admin-input-loc"
+                      className="pop-input"
+                      value={contactInputs.location}
+                      onChange={(e) =>
+                        setContactInputs({ ...contactInputs, location: e.target.value })
+                      }
+                      placeholder="Contoh: Indonesia / Jakarta / Surabaya"
+                    />
+                  </div>
+
+                  {/* Instagram */}
+                  <div className="admin-form-group">
+                    <label htmlFor="admin-input-ig" className="admin-field-label">
+                      📸 Instagram (Link / Username):
+                    </label>
+                    <input
+                      type="text"
+                      id="admin-input-ig"
+                      className="pop-input"
+                      value={contactInputs.instagram}
+                      onChange={(e) =>
+                        setContactInputs({ ...contactInputs, instagram: e.target.value })
+                      }
+                      placeholder="Contoh: https://instagram.com/username atau @username"
+                    />
+                  </div>
+
+                  {/* TikTok */}
+                  <div className="admin-form-group">
+                    <label htmlFor="admin-input-tiktok" className="admin-field-label">
+                      🎵 TikTok (Link / Username):
+                    </label>
+                    <input
+                      type="text"
+                      id="admin-input-tiktok"
+                      className="pop-input"
+                      value={contactInputs.tiktok}
+                      onChange={(e) =>
+                        setContactInputs({ ...contactInputs, tiktok: e.target.value })
+                      }
+                      placeholder="Contoh: https://tiktok.com/@username atau @username"
+                    />
+                  </div>
+
+                  {/* YouTube */}
+                  <div className="admin-form-group">
+                    <label htmlFor="admin-input-yt" className="admin-field-label">
+                      ▶️ YouTube (Link Channel / Handle):
+                    </label>
+                    <input
+                      type="text"
+                      id="admin-input-yt"
+                      className="pop-input"
+                      value={contactInputs.youtube}
+                      onChange={(e) =>
+                        setContactInputs({ ...contactInputs, youtube: e.target.value })
+                      }
+                      placeholder="Contoh: https://youtube.com/@channel atau @channel"
+                    />
+                  </div>
+
+                  <div className="admin-about-actions">
+                    <button
+                      type="button"
+                      className="btn btn-outline"
+                      onClick={handleResetContacts}
+                      title="Kosongkan seluruh kontak dan media sosial"
+                    >
+                      🗑️ Kosongkan Kontak
+                    </button>
+                    <button type="submit" className="btn btn-primary">
+                      💾 Simpan Kontak & Sosial Media
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              {/* Kolom Preview Kontak */}
+              <div className="admin-about-preview-col">
+                <div className="admin-preview-header-label">
+                  <span>👁️ Live Preview Data Kontak:</span>
+                </div>
+
+                <div className="admin-contacts-preview-box pop-card">
+                  <h4 className="preview-hero-title">STATUS KONTAK</h4>
+
+                  <div className="admin-preview-contact-item">
+                    <strong>WhatsApp:</strong>
+                    <span>{contactInputs.whatsapp || '(Belum diatur / Kosong)'}</span>
+                  </div>
+
+                  <div className="admin-preview-contact-item">
+                    <strong>Domisili:</strong>
+                    <span>{contactInputs.location || '(Belum diatur / Kosong)'}</span>
+                  </div>
+
+                  <div className="admin-preview-contact-item">
+                    <strong>Instagram:</strong>
+                    <span>{contactInputs.instagram || '(Kosong)'}</span>
+                  </div>
+
+                  <div className="admin-preview-contact-item">
+                    <strong>TikTok:</strong>
+                    <span>{contactInputs.tiktok || '(Kosong)'}</span>
+                  </div>
+
+                  <div className="admin-preview-contact-item">
+                    <strong>YouTube:</strong>
+                    <span>{contactInputs.youtube || '(Kosong)'}</span>
+                  </div>
+                </div>
+
+                <div className="admin-preview-note">
+                  💡 Jika link dikosongkan, tombol media sosial yang bersangkutan akan otomatis disembunyikan dari halaman web.
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ===================================================================
+            TAB CONTENT 3: KELOLA KARYA (CRUD)
             =================================================================== */}
         {adminTab === 'karya' && (
           <div className="admin-tab-content-karya">
@@ -613,7 +887,7 @@ export default function AdminModal() {
             =================================================================== */}
         <div className="admin-modal-footer">
           <div className="admin-footer-tip">
-            💡 <strong>Shortcut:</strong> Tekan <code>Ctrl + Shift + P</code> (atau <code>Cmd + Shift + P</code> di Mac) untuk membuka/menutup panel admin ini kapan saja.
+            💡 <strong>Shortcut:</strong> Tekan <code>Ctrl + Shift + B</code> (atau <code>Cmd + Shift + B</code> di Mac) untuk membuka/menutup panel admin ini kapan saja.
           </div>
           <button
             type="button"
