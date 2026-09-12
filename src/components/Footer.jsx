@@ -47,7 +47,6 @@ export default function Footer() {
             <h4 className="footer-heading">Navigasi Halaman</h4>
             <ul className="footer-menu">
               <li><a href="#home">Beranda</a></li>
-              <li><a href="#video-intro">Video Perkenalan</a></li>
               <li><a href="#skills">Skill & Keahlian</a></li>
               <li><a href="#karya">Galeri Karya</a></li>
               <li><a href="#contact">Kontak Langsung</a></li>

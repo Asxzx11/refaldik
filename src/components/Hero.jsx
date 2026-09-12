@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
+import { usePortfolio } from '../context/PortfolioContext';
 import SocialLinks from './SocialLinks';
 import './Hero.css';
 
@@ -11,6 +12,7 @@ import stickersTextImg from '../assets/stickers-text.png';
 
 export default function Hero() {
   const { personal } = portfolioData;
+  const { aboutMe } = usePortfolio();
 
   // Mouse move parallax interaction state
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -108,18 +110,15 @@ export default function Hero() {
             <h1 className="name-line name-last">{personal.nameLine2 || 'KURNIAWAN'}</h1>
           </div>
 
-          {/* Section: ABOUT ME */}
+          {/* Section: ABOUT ME (Real-time synced from Context & LocalStorage) */}
           <div className="hero-about-box">
             <h3 className="about-title">{personal.aboutHeading || 'ABOUT ME'}</h3>
-            <p className="about-paragraph">{personal.aboutDescription}</p>
+            <p className="about-paragraph">{aboutMe || personal.aboutDescription}</p>
           </div>
 
           {/* Action Buttons */}
           <div className="hero-cta-row">
-            <a href="#video-intro" className="btn btn-primary">
-              <span>Tonton Video Perkenalan</span>
-            </a>
-            <a href="#karya" className="btn btn-secondary">
+            <a href="#karya" className="btn btn-primary">
               <span>Lihat Karya</span>
             </a>
             <a

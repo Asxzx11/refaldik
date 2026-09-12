@@ -5,17 +5,13 @@ import './VideoIntro.css';
 export default function VideoIntro() {
   const { videoIntro } = portfolioData;
 
-  const embedSrc =
-    videoIntro.videoUrl ||
-    "https://drive.google.com/file/d/1uyTbjMO7UH4Sr0JSPGzaSej086WtjQ4c/preview";
-
   return (
     <section id="video-intro" className="section pop-video-section">
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
           <div className="section-badge">
-            <span>{videoIntro.badge || 'VIDEO PERKENALAN'}</span>
+            <span>{videoIntro.badge}</span>
           </div>
           <h2 className="section-title">
             Tonton Video <span className="section-title-cream">Perkenalan</span>
@@ -33,36 +29,37 @@ export default function VideoIntro() {
               <span className="dot dot-yellow" />
               <span className="dot dot-green" />
             </div>
-            <span className="pop-video-title">Video Perkenalan (Google Drive)</span>
-            <span className="pop-video-badge">DRIVE STREAM HD</span>
+            <span className="pop-video-title">intro.mp4</span>
+            <span className="pop-video-badge">CREATIVE HD</span>
           </div>
 
-          {/* Responsive 16:9 Aspect-Video Screen */}
           <div className="pop-video-screen">
-            <iframe
-              src={embedSrc}
-              title="Video Perkenalan Refaldi Kurniawan"
-              className="pop-video-iframe w-full aspect-video rounded-2xl border-0 shadow-md"
-              allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-              allowFullScreen
-            />
+            {videoIntro.videoType === 'embed' ? (
+              <iframe
+                src={videoIntro.videoUrl}
+                title="Video Perkenalan Refaldi Kurniawan"
+                className="pop-video-iframe"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <video
+                controls
+                className="pop-video-native"
+                src={videoIntro.videoFileUrl || "/introvid/intro.mp4"}
+                playsInline
+                preload="metadata"
+              >
+                <source src={videoIntro.videoFileUrl || "/introvid/intro.mp4"} type="video/mp4" />
+                Browser Anda tidak mendukung pemutar video HTML5.
+              </video>
+            )}
           </div>
 
           <div className="pop-video-footer">
             <p>
               Video ini adalah video perkenalan PKKMB saya
             </p>
-            {embedSrc && embedSrc.includes('drive.google.com') && (
-              <a
-                href={embedSrc.replace('/preview', '/view')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-drive-intro-link"
-                title="Buka video di Google Drive pada tab baru"
-              >
-                <span>Buka di Google Drive ↗</span>
-              </a>
-            )}
           </div>
         </div>
 

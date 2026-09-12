@@ -7,16 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Dependencies & Build
 node_modules
 dist
 dist-ssr
 *.local
-.env
-.env.*
-
-# Large Media Files
-public/introvid/
 
 # Editor directories and files
 .vscode/*

@@ -9,7 +9,6 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Beranda', href: '#home' },
-    { name: 'Video Perkenalan', href: '#video-intro' },
     { name: 'Skill & Keahlian', href: '#skills' },
     { name: 'Karya', href: '#karya' },
     { name: 'Kontak', href: '#contact' },
