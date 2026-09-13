@@ -75,7 +75,7 @@ export function PortfolioProvider({ children }) {
       const saved = localStorage.getItem(STORAGE_KEYS.KARYA_DATA);
       if (saved !== null && saved !== undefined) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) {
+        if (Array.isArray(parsed) && parsed.length > 0) {
           return parsed;
         }
       }
