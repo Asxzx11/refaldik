@@ -26,6 +26,8 @@ export default function Hero() {
   const { personal } = portfolioData;
   const { aboutMe, profilePhoto, contacts } = usePortfolio();
 
+  const photoSrc = profilePhoto || personal?.profilePhoto || '/images/mypibi.png';
+
   const cleanWaNumber = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
   const waUrl = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '#karya';
 
@@ -46,27 +48,15 @@ export default function Hero() {
             ================================================================= */}
         <div className="hero-visual-column">
           <div className="hero-photo-frame pop-card">
-            {profilePhoto ? (
-              <img
-                src={cleanPath(profilePhoto)}
-                alt={personal?.name || 'Phebe Fabulla'}
-                className="hero-photo-img"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.style.display = 'none';
-                }}
-              />
-            ) : (
-              <div className="hero-photo-empty-box">
-                <div className="empty-avatar-circle">
-                  <span className="empty-avatar-icon">👤</span>
-                </div>
-                <div className="empty-avatar-text">
-                  <span className="empty-title">{personal?.name || 'Phebe Fabulla'}</span>
-                  <span className="empty-sub">{personal?.role || 'Digital Creative Specialist'}</span>
-                </div>
-              </div>
-            )}
+            <img
+              src={cleanPath(photoSrc)}
+              alt={personal?.name || 'Phebe Fabulla'}
+              className="hero-photo-img"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '/images/mypibi.png';
+              }}
+            />
           </div>
         </div>
 

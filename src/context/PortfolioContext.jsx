@@ -44,13 +44,13 @@ export function PortfolioProvider({ children }) {
   const [profilePhoto, setProfilePhotoState] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.PROFILE_PHOTO);
-      if (saved !== null && saved !== undefined) {
+      if (saved !== null && saved !== undefined && saved.trim() !== '') {
         return saved;
       }
     } catch (e) {
       console.warn('Gagal membaca portfolio_profile_photo dari localStorage:', e);
     }
-    return '';
+    return portfolioData.personal?.profilePhoto || '/images/mypibi.png';
   });
 
   // 3. State Kontak & Sosial Media dengan sinkronisasi localStorage

@@ -17,7 +17,7 @@ export default function Skills() {
             Skill & Bidang <span className="section-title-cream">Kreatif</span>
           </h2>
           <p className="section-subtitle">
-            Kombinasi kemampuan editing video, desain visual, branding media sosial, dan adaptasi software otodidak yang saya kuasai.
+            Kombinasi kemampuan desain visual & digital scrapbook, penerjemahan bahasa bilingual, dan adaptasi software otodidak yang saya kuasai.
           </p>
         </div>
 

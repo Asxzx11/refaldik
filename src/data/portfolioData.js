@@ -8,6 +8,7 @@ export const portfolioData = {
     lastName: "Fabulla",
     nameLine1: "PHEBE",
     nameLine2: "FABULLA",
+    profilePhoto: "/images/mypibi.png",
     role: "Digital Creative Specialist & Visual Creator",
     tagline: "Video Editing • Visual Design • Social Media Branding",
     aboutHeading: "ABOUT ME",
@@ -28,25 +29,13 @@ export const portfolioData = {
     quote2: "fun things\nare fun!",
   },
 
-  // Bagian Skill & Keahlian
+  // Bagian Skill & Keahlian (3 Keahlian Utama)
   skills: [
     {
-      name: "Video Editing & Post-Production",
-      category: "Video",
-      desc: "Editing video dinamis, pemotongan ritmis, color grading, sound design, dan motion effect.",
-      tools: ["CapCut", "Adobe Premiere Pro", "DaVinci Resolve"],
-    },
-    {
-      name: "Desain Visual & Pop-Art Graphic",
+      name: "Design & Digital Scrapbook",
       category: "Design",
-      desc: "Desain grafis bertema pop-art, poster tipografi, thumbnail YouTube, dan digital imaging.",
-      tools: ["Photoshop", "Illustrator", "Canva"],
-    },
-    {
-      name: "Branding & Konten Media Sosial",
-      category: "Social Media",
-      desc: "Perancangan template feed Instagram, visual banner, dan strategi konsistensi identitas merek.",
-      tools: ["Figma", "Canva", "Photoshop"],
+      desc: "Desain visual bertema kreatif, digital scrapbook, poster tipografi, thumbnail, dan digital imaging.",
+      tools: ["Photoshop", "Illustrator", "Canva", "ibis Paint"],
     },
     {
       name: "Penerjemahan Bahasa (ID - EN)",
@@ -59,12 +48,6 @@ export const portfolioData = {
       category: "Soft Skill",
       desc: "Cepat mempelajari tools baru secara mandiri dan mengikuti tren kreatif digital terkini.",
       tools: ["Self-Learning", "Creative Workflow"],
-    },
-    {
-      name: "Manajemen Jasa & Komisi Mandiri",
-      category: "Service",
-      desc: "Pengalaman menerima pesanan komisi desain & editing video dengan komunikasi yang responsif.",
-      tools: ["Client Communication", "Project Delivery"],
     },
   ],
 

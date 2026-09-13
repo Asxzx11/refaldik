@@ -9,13 +9,16 @@
 
 .pop-skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.75rem;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 960px) {
   .pop-skills-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 580px;
+    margin: 0 auto;
   }
 }
 
