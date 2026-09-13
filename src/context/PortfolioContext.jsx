@@ -17,9 +17,9 @@ export const STORAGE_KEYS = {
 };
 
 const defaultContacts = {
-  whatsapp: '',
+  whatsapp: '088271083335',
   location: '',
-  instagram: '',
+  instagram: 'https://www.instagram.com/pibifabulla',
   tiktok: '',
   youtube: '',
 };
@@ -31,22 +31,24 @@ export function PortfolioProvider({ children }) {
 
   // 1. State About Me dengan sinkronisasi localStorage
   const [aboutMe, setAboutMeState] = useState(() => {
+    const currentDefault = portfolioData.personal?.aboutDescription || '';
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.ABOUT_ME);
       if (saved !== null && saved !== undefined && saved.trim() !== '') {
-        if (saved.includes('(Ctrl + Shift + B)') || saved.includes('Secret Admin Panel')) {
-          const cleaned = saved
-            .replace(/\s*Silakan sesuaikan deskripsi ini melalui Secret Admin Panel \(Ctrl \+ Shift \+ B\)\./g, '')
-            .replace(/\s*\(Ctrl\s*\+\s*Shift\s*\+\s*[BP]\)/gi, '');
-          localStorage.setItem(STORAGE_KEYS.ABOUT_ME, cleaned);
-          return cleaned;
+        if (
+          saved.includes('(Ctrl + Shift + B)') ||
+          saved.includes('Secret Admin Panel') ||
+          saved.includes('editing video dinamis, motion graphic')
+        ) {
+          localStorage.setItem(STORAGE_KEYS.ABOUT_ME, currentDefault);
+          return currentDefault;
         }
         return saved;
       }
     } catch (e) {
       console.warn('Gagal membaca portfolio_about_me dari localStorage:', e);
     }
-    return portfolioData.personal?.aboutDescription || '';
+    return currentDefault;
   });
 
   // 2. State Foto Profil (Square 1:1) dengan sinkronisasi localStorage
@@ -69,7 +71,10 @@ export function PortfolioProvider({ children }) {
       if (saved !== null && saved !== undefined) {
         const parsed = JSON.parse(saved);
         if (parsed && typeof parsed === 'object') {
-          return { ...defaultContacts, ...parsed };
+          const merged = { ...defaultContacts, ...parsed };
+          if (!merged.whatsapp) merged.whatsapp = defaultContacts.whatsapp;
+          if (!merged.instagram) merged.instagram = defaultContacts.instagram;
+          return merged;
         }
       }
     } catch (e) {
@@ -85,6 +90,17 @@ export function PortfolioProvider({ children }) {
       if (saved !== null && saved !== undefined) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
+          const hasOldPlaceholder = parsed.some(
+            (item) =>
+              item.title === 'Karya 1' ||
+              item.title === 'Karya 2' ||
+              (item.description && item.description.includes('Karya desain visual dan digital scrapbook kreatif')) ||
+              (item.tags && item.tags.includes('Pop-Art') && item.id === 'karya-1')
+          );
+          if (hasOldPlaceholder) {
+            localStorage.setItem(STORAGE_KEYS.KARYA_DATA, JSON.stringify(defaultKaryaData));
+            return defaultKaryaData;
+          }
           return parsed;
         }
       }

@@ -102,7 +102,9 @@ export default function Karya() {
                     <div className="karya-title-row">
                       <h3 className="karya-pop-title">{item.title}</h3>
                     </div>
-                    <p className="karya-pop-desc">{item.description}</p>
+                    {item.description ? (
+                      <p className="karya-pop-desc">{item.description}</p>
+                    ) : null}
 
                     {/* Tags */}
                     {item.tags && item.tags.length > 0 && (
@@ -246,10 +248,12 @@ export default function Karya() {
                 </div>
               )}
 
-              <div className="lightbox-desc-box">
-                <h4>Deskripsi & Konsep Karya:</h4>
-                <p>{selectedKarya.description}</p>
-              </div>
+              {selectedKarya.description ? (
+                <div className="lightbox-desc-box">
+                  <h4>Deskripsi & Konsep Karya:</h4>
+                  <p>{selectedKarya.description}</p>
+                </div>
+              ) : null}
 
               {selectedKarya.tags && selectedKarya.tags.length > 0 && (
                 <div className="lightbox-tools-box">

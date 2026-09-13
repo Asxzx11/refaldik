@@ -28,7 +28,8 @@ export default function Hero() {
 
   const photoSrc = profilePhoto || personal?.profilePhoto || '/images/mypibi.png';
 
-  const cleanWaNumber = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
+  const rawWa = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
+  const cleanWaNumber = rawWa.startsWith('0') ? '62' + rawWa.slice(1) : rawWa;
   const waUrl = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '#karya';
 
   const hasAnySocial = Boolean(

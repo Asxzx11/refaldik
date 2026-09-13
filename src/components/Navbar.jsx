@@ -9,7 +9,8 @@ export default function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeSec, setActiveSec] = useState('home');
 
-  const cleanWaNumber = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
+  const rawWa = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
+  const cleanWaNumber = rawWa.startsWith('0') ? '62' + rawWa.slice(1) : rawWa;
   const waUrl = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '#home';
 
   const navLinks = [

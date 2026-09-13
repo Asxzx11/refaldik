@@ -20,7 +20,10 @@ const formatSocialUrl = (type, val) => {
         ? `https://www.youtube.com/${trimmed}`
         : `https://www.youtube.com/@${cleanUsername}`;
     case 'whatsapp': {
-      const cleanNumber = trimmed.replace(/[^0-9]/g, '');
+      let cleanNumber = trimmed.replace(/[^0-9]/g, '');
+      if (cleanNumber.startsWith('0')) {
+        cleanNumber = '62' + cleanNumber.slice(1);
+      }
       return `https://wa.me/${cleanNumber}`;
     }
     default:

@@ -10,7 +10,8 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  const cleanWaNumber = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
+  const rawWa = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
+  const cleanWaNumber = rawWa.startsWith('0') ? '62' + rawWa.slice(1) : rawWa;
   const hasAnySocial = Boolean(
     contacts?.instagram || contacts?.tiktok || contacts?.youtube || contacts?.whatsapp
   );
