@@ -24,16 +24,14 @@ const cleanPath = (url) => {
 
 export default function Hero() {
   const { personal } = portfolioData;
-  const { aboutMe, profilePhoto, contacts, setIsAdminOpen, setAdminTab } = usePortfolio();
+  const { aboutMe, profilePhoto, contacts } = usePortfolio();
+
+  const cleanWaNumber = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
+  const waUrl = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '#karya';
 
   const hasAnySocial = Boolean(
     contacts?.instagram || contacts?.tiktok || contacts?.youtube || contacts?.whatsapp
   );
-
-  const handleOpenAdminPhoto = () => {
-    setAdminTab('about');
-    setIsAdminOpen(true);
-  };
 
   return (
     <section id="home" className="hero-pop-section">
@@ -51,7 +49,7 @@ export default function Hero() {
             {profilePhoto ? (
               <img
                 src={cleanPath(profilePhoto)}
-                alt={personal?.name || 'Foto Profil'}
+                alt={personal?.name || 'Phebe Fabulla'}
                 className="hero-photo-img"
                 onError={(e) => {
                   e.target.onerror = null;
@@ -59,18 +57,13 @@ export default function Hero() {
                 }}
               />
             ) : (
-              <div
-                className="hero-photo-empty-box"
-                onClick={handleOpenAdminPhoto}
-                title="Klik untuk mengatur Foto Profil di Admin Panel (Ctrl + Shift + B)"
-              >
+              <div className="hero-photo-empty-box">
                 <div className="empty-avatar-circle">
                   <span className="empty-avatar-icon">👤</span>
                 </div>
                 <div className="empty-avatar-text">
-                  <span className="empty-title">Foto Profil (1:1)</span>
-                  <span className="empty-sub">Atur via Admin Panel</span>
-                  <kbd className="empty-shortcut-kbd">Ctrl+Shift+B</kbd>
+                  <span className="empty-title">{personal?.name || 'Phebe Fabulla'}</span>
+                  <span className="empty-sub">{personal?.role || 'Digital Creative Specialist'}</span>
                 </div>
               </div>
             )}
@@ -84,8 +77,8 @@ export default function Hero() {
           {/* Top Big Name Typography */}
           <div className="hero-headline-box">
             <div className="headline-ambient-flare" />
-            <h1 className="name-line name-first">{personal?.nameLine1 || 'PORTOFOLIO'}</h1>
-            <h1 className="name-line name-last">{personal?.nameLine2 || 'KREATIF'}</h1>
+            <h1 className="name-line name-first">{personal?.nameLine1 || 'PHEBE'}</h1>
+            <h1 className="name-line name-last">{personal?.nameLine2 || 'FABULLA'}</h1>
           </div>
 
           {/* Section: ABOUT ME (Real-time synced from Context & LocalStorage) */}
@@ -99,7 +92,12 @@ export default function Hero() {
             <a href="#karya" className="btn btn-primary">
               <span>Lihat Karya</span>
             </a>
-            <a href="#contact" className="btn btn-outline">
+            <a
+              href={waUrl}
+              target={cleanWaNumber ? '_blank' : '_self'}
+              rel={cleanWaNumber ? 'noopener noreferrer' : ''}
+              className="btn btn-outline"
+            >
               <span>Hubungi Saya</span>
             </a>
           </div>

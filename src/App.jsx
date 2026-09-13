@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Skills from './components/Skills';
 import Karya from './components/Karya';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AdminModal from './components/AdminModal';
 import './App.css';
@@ -26,9 +25,6 @@ export default function App() {
 
           {/* 3. Galeri Karya & Portofolio (Real-Time Synchronized) */}
           <Karya />
-
-          {/* 4. Kontak */}
-          <Contact />
         </main>
 
         {/* Footer */}

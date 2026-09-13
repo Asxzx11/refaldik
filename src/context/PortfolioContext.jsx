@@ -25,6 +25,13 @@ export function PortfolioProvider({ children }) {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.ABOUT_ME);
       if (saved !== null && saved !== undefined && saved.trim() !== '') {
+        if (saved.includes('(Ctrl + Shift + B)') || saved.includes('Secret Admin Panel')) {
+          const cleaned = saved
+            .replace(/\s*Silakan sesuaikan deskripsi ini melalui Secret Admin Panel \(Ctrl \+ Shift \+ B\)\./g, '')
+            .replace(/\s*\(Ctrl\s*\+\s*Shift\s*\+\s*[BP]\)/gi, '');
+          localStorage.setItem(STORAGE_KEYS.ABOUT_ME, cleaned);
+          return cleaned;
+        }
         return saved;
       }
     } catch (e) {

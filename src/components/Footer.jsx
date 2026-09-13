@@ -58,7 +58,6 @@ export default function Footer() {
               <li><a href="#home">Beranda</a></li>
               <li><a href="#skills">Skill & Keahlian</a></li>
               <li><a href="#karya">Galeri Karya</a></li>
-              <li><a href="#contact">Kontak Langsung</a></li>
             </ul>
           </div>
 

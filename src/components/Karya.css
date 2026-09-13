@@ -351,12 +351,12 @@
 }
 
 .karya-pop-footer {
-  padding: 1rem 1.5rem;
+  padding: 0.9rem 1.5rem;
   border-top: 2px dashed var(--teal-primary);
   background: var(--teal-soft);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 0.75rem;
 }
 

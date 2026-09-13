@@ -92,16 +92,10 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--cream-primary) 0%, var(--teal-soft) 100%);
-  cursor: pointer;
   padding: 1.5rem;
   text-align: center;
   gap: 0.85rem;
   user-select: none;
-  transition: background 0.2s ease;
-}
-
-.hero-photo-empty-box:hover {
-  background: linear-gradient(135deg, #ffffff 0%, var(--cream-primary) 100%);
 }
 
 .empty-avatar-circle {
@@ -138,17 +132,6 @@
   font-size: 0.82rem;
   color: var(--text-muted);
   font-weight: 600;
-}
-
-.empty-shortcut-kbd {
-  background: var(--teal-deep);
-  color: var(--cream-primary);
-  font-family: monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 0.15rem 0.5rem;
-  border-radius: var(--radius-full);
-  margin-top: 0.25rem;
 }
 
 @media (max-width: 480px) {

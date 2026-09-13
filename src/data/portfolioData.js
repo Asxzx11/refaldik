@@ -3,16 +3,16 @@ import { karyaCategories, karyaData } from './karyaData';
 export const portfolioData = {
   // Informasi Profil Template Baru
   personal: {
-    name: "Refaldi Kurniawan",
-    firstName: "Refaldi",
-    lastName: "Kurniawan",
-    nameLine1: "PORTOFOLIO",
-    nameLine2: "KREATIF",
+    name: "Phebe Fabulla",
+    firstName: "Phebe",
+    lastName: "Fabulla",
+    nameLine1: "PHEBE",
+    nameLine2: "FABULLA",
     role: "Digital Creative Specialist & Visual Creator",
     tagline: "Video Editing • Visual Design • Social Media Branding",
     aboutHeading: "ABOUT ME",
     aboutDescription:
-      "Selamat datang di portofolio kreatif saya! Saya berfokus pada editing video dinamis, motion graphic, dan desain visual kreatif. Silakan sesuaikan deskripsi ini melalui Secret Admin Panel (Ctrl + Shift + B).",
+      "Selamat datang di portofolio kreatif saya! Saya berfokus pada editing video dinamis, motion graphic, dan pembuatan desain visual kreatif berkualitas tinggi untuk berbagai kebutuhan konten digital.",
     location: "",
     whatsapp: "",
     whatsappUrl: "",

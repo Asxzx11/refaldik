@@ -10,13 +10,12 @@ export default function Navbar() {
   const [activeSec, setActiveSec] = useState('home');
 
   const cleanWaNumber = contacts?.whatsapp ? contacts.whatsapp.replace(/[^0-9]/g, '') : '';
-  const waUrl = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '#contact';
+  const waUrl = cleanWaNumber ? `https://wa.me/${cleanWaNumber}` : '#home';
 
   const navLinks = [
     { name: 'Beranda', href: '#home' },
     { name: 'Skill & Keahlian', href: '#skills' },
     { name: 'Karya', href: '#karya' },
-    { name: 'Kontak', href: '#contact' },
   ];
 
   useEffect(() => {
@@ -48,7 +47,7 @@ export default function Navbar() {
             <span>P</span>
           </div>
           <span className="logo-bubble-text">
-            {portfolioData.personal.firstName || 'Portofolio'}
+            {portfolioData.personal.firstName || 'Phebe'}
             <span className="logo-bubble-accent">.</span>
           </span>
         </a>

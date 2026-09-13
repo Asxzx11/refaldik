@@ -42,7 +42,7 @@ export default function SocialLinks({ className = '', showEmpty = false }) {
     if (showEmpty) {
       return (
         <div className={`social-links-wrapper social-links-empty ${className}`}>
-          <span className="social-empty-badge">Sosial media belum diatur (Ctrl + Shift + B)</span>
+          <span className="social-empty-badge">Belum ada akun medsos</span>
         </div>
       );
     }
