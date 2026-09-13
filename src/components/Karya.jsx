@@ -1,6 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { usePortfolio } from '../context/PortfolioContext';
-import { karyaCategories } from '../data/karyaData';
 import './Karya.css';
 
 // Helper: Membersihkan path agar tidak ada prefix 'public/' ganda dan mendukung URL eksternal
@@ -23,26 +22,7 @@ const cleanPath = (url) => {
 
 export default function Karya() {
   const { karyaList } = usePortfolio();
-
-  const [activeCat, setActiveCat] = useState('Semua Karya');
   const [selectedKarya, setSelectedKarya] = useState(null);
-
-  // Daftar Kategori
-  const categories = karyaCategories || [
-    'Semua Karya',
-    'Design',
-    'Edit',
-    'Collaboration Project',
-    'Movie',
-    'Photographic',
-    'Iklan / Merch',
-  ];
-
-  // Filtering Logic Galeri Utama
-  const filteredKarya = useMemo(() => {
-    if (activeCat === 'Semua Karya' || activeCat === 'All') return karyaList;
-    return karyaList.filter((k) => k.category === activeCat);
-  }, [karyaList, activeCat]);
 
   // Buka Modal Detail / Preview Publik
   const handleOpenModal = (item) => {
@@ -61,28 +41,14 @@ export default function Karya() {
             Hasil Karya & <span className="section-title-cream">Portofolio</span>
           </h2>
           <p className="section-subtitle">
-            Kumpulan video kreatif, editing video, motion graphic, desain grafis, dan materi visual yang telah saya kerjakan.
+            Kumpulan desain visual, scrapbook digital, materi kreatif, dan karya visual yang telah saya kerjakan.
           </p>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="karya-filter-row">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              className={`karya-filter-btn ${activeCat === cat ? 'active' : ''}`}
-              onClick={() => setActiveCat(cat)}
-            >
-              <span>{cat}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Karya Grid */}
-        {filteredKarya.length > 0 ? (
+        {/* Karya Grid - Menampilkan seluruh karya secara langsung */}
+        {karyaList && karyaList.length > 0 ? (
           <div className="pop-karya-grid">
-            {filteredKarya.map((item) => {
+            {karyaList.map((item) => {
               const hasVideo = Boolean(item.videoUrl);
               const hasEmbed = Boolean(item.embedUrl);
               const imgSrc = item.image || (Array.isArray(item.images) ? item.images[0] : '');
@@ -170,25 +136,8 @@ export default function Karya() {
           </div>
         ) : (
           <div className="karya-empty-state pop-card">
-            <h3 className="empty-title">
-              {activeCat === 'Semua Karya' ? 'Galeri Karya' : `Kategori ${activeCat}`}
-            </h3>
-            <p className="empty-desc">
-              {karyaList.length === 0
-                ? 'Karya akan segera diunggah.'
-                : `Belum ada karya untuk kategori "${activeCat}".`}
-            </p>
-            {activeCat !== 'Semua Karya' && (
-              <div className="empty-actions" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-                <button
-                  type="button"
-                  className="btn btn-outline"
-                  onClick={() => setActiveCat('Semua Karya')}
-                >
-                  Lihat Semua Karya
-                </button>
-              </div>
-            )}
+            <h3 className="empty-title">Galeri Karya</h3>
+            <p className="empty-desc">Karya akan segera diunggah.</p>
           </div>
         )}
       </div>
