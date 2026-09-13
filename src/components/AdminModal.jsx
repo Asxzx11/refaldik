@@ -43,6 +43,8 @@ export default function AdminModal() {
     adminTab,
     setAdminTab,
     showToast,
+    isCloudConnected,
+    isSavingToCloud,
   } = usePortfolio();
 
   // State Form Edit Profil & About Me
@@ -122,37 +124,35 @@ export default function AdminModal() {
   }, [karyaList, searchQuery, selectedCategoryFilter]);
 
   // Handle Simpan Profil & About Me
-  const handleSaveProfileAbout = (e) => {
+  const handleSaveProfileAbout = async (e) => {
     e.preventDefault();
-    updateAboutMe(aboutInput);
-    updateProfilePhoto(photoInput);
-    showToast('✨ Profil, Foto & About Me berhasil disimpan!');
+    await updateAboutMe(aboutInput);
+    await updateProfilePhoto(photoInput);
   };
 
   // Handle Reset About Me
-  const handleResetAbout = () => {
+  const handleResetAbout = async () => {
     const confirmReset = window.confirm(
       'Apakah Anda yakin ingin mereset teks "About Me" ke bawaan default?'
     );
     if (confirmReset) {
-      resetAboutMe();
+      await resetAboutMe();
     }
   };
 
   // Handle Simpan Kontak & Sosmed
-  const handleSaveContacts = (e) => {
+  const handleSaveContacts = async (e) => {
     e.preventDefault();
-    updateContacts(contactInputs);
-    showToast('📱 Data Kontak & Sosial Media berhasil disimpan!');
+    await updateContacts(contactInputs);
   };
 
   // Handle Kosongkan Kontak
-  const handleResetContacts = () => {
+  const handleResetContacts = async () => {
     const confirmReset = window.confirm(
       'Apakah Anda yakin ingin mengosongkan seluruh data kontak & sosial media?'
     );
     if (confirmReset) {
-      resetContacts();
+      await resetContacts();
       setContactInputs({
         whatsapp: '',
         location: '',
@@ -202,7 +202,7 @@ export default function AdminModal() {
   };
 
   // Simpan Form CRUD Karya
-  const handleSaveKaryaForm = (e) => {
+  const handleSaveKaryaForm = async (e) => {
     e.preventDefault();
 
     if (!formData.title.trim()) {
@@ -231,30 +231,30 @@ export default function AdminModal() {
     }
 
     if (isCreateMode) {
-      addKarya(itemPayload);
+      await addKarya(itemPayload);
     } else {
-      editKarya(itemPayload);
+      await editKarya(itemPayload);
     }
 
     setIsFormOpen(false);
   };
 
   // Handle Hapus Karya
-  const handleDeleteItem = (id, title) => {
+  const handleDeleteItem = async (id, title) => {
     const confirmDelete = window.confirm(
-      `Apakah Anda yakin ingin menghapus karya:\n"${title}"?\n\nTindakan ini akan menghapus karya dari daftar dan LocalStorage secara permanen.`
+      `Apakah Anda yakin ingin menghapus karya:\n"${title}"?\n\nTindakan ini akan menghapus karya dari daftar dan Cloud Database secara permanen.`
     );
     if (!confirmDelete) return;
-    deleteKarya(id, title);
+    await deleteKarya(id, title);
   };
 
   // Handle Reset Data Karya
-  const handleResetKarya = () => {
+  const handleResetKarya = async () => {
     const confirmReset = window.confirm(
-      '⚠️ PERINGATAN: Apakah Anda yakin ingin mereset seluruh data karya ke bawaan template kosong?\n\nSemua karya lokal akan dikosongkan/dikembalikan ke template awal.'
+      '⚠️ PERINGATAN: Apakah Anda yakin ingin mereset seluruh data karya ke bawaan template default?\n\nSemua karya akan dikembalikan ke template awal.'
     );
     if (!confirmReset) return;
-    resetKarya();
+    await resetKarya();
   };
 
   // Export Data Karya JSON
@@ -318,6 +318,9 @@ export default function AdminModal() {
           <div className="admin-header-title-box">
             <div className="admin-badge-row">
               <span className="admin-badge-pulse">● LIVE ADMIN</span>
+              <span className={`admin-cloud-badge ${isCloudConnected ? 'cloud-online' : 'cloud-offline'}`}>
+                {isCloudConnected ? '☁️ Cloud Firestore: Terhubung' : '💾 Mode Offline (LocalStorage)'}
+              </span>
               <span className="admin-shortcut-pill">Shortcut: Ctrl + Shift + B</span>
             </div>
             <h3 className="admin-modal-title">🔐 Secret Admin Panel</h3>
@@ -442,12 +445,13 @@ export default function AdminModal() {
                       type="button"
                       className="btn btn-outline"
                       onClick={handleResetAbout}
+                      disabled={isSavingToCloud}
                       title="Kembalikan teks About Me ke teks bawaan"
                     >
                       🔄 Reset About Me
                     </button>
-                    <button type="submit" className="btn btn-primary">
-                      💾 Simpan Profil & About Me
+                    <button type="submit" className="btn btn-primary" disabled={isSavingToCloud}>
+                      {isSavingToCloud ? '☁️ Menyimpan...' : '💾 Simpan Profil & About Me'}
                     </button>
                   </div>
                 </form>
@@ -603,12 +607,13 @@ export default function AdminModal() {
                       type="button"
                       className="btn btn-outline"
                       onClick={handleResetContacts}
+                      disabled={isSavingToCloud}
                       title="Kosongkan seluruh kontak dan media sosial"
                     >
                       🗑️ Kosongkan Kontak
                     </button>
-                    <button type="submit" className="btn btn-primary">
-                      💾 Simpan Kontak & Sosial Media
+                    <button type="submit" className="btn btn-primary" disabled={isSavingToCloud}>
+                      {isSavingToCloud ? '☁️ Menyimpan...' : '💾 Simpan Kontak & Sosial Media'}
                     </button>
                   </div>
                 </form>
@@ -1133,11 +1138,16 @@ export default function AdminModal() {
                   type="button"
                   className="btn btn-outline"
                   onClick={() => setIsFormOpen(false)}
+                  disabled={isSavingToCloud}
                 >
                   Batal
                 </button>
-                <button type="submit" className="btn btn-primary">
-                  {isCreateMode ? '✨ Tambahkan Karya' : '💾 Simpan Perubahan'}
+                <button type="submit" className="btn btn-primary" disabled={isSavingToCloud}>
+                  {isSavingToCloud
+                    ? '☁️ Menyimpan...'
+                    : isCreateMode
+                    ? '✨ Tambahkan Karya'
+                    : '💾 Simpan Perubahan'}
                 </button>
               </div>
             </form>

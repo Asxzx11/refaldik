@@ -78,6 +78,31 @@
   box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
 }
 
+.admin-cloud-badge {
+  font-family: var(--font-rounded);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1.5px solid transparent;
+}
+
+.admin-cloud-badge.cloud-online {
+  background: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.25);
+}
+
+.admin-cloud-badge.cloud-offline {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
+}
+
 .admin-shortcut-pill {
   background: var(--teal-deep);
   color: var(--cream-primary);
