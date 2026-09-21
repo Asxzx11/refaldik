@@ -4,6 +4,9 @@ import './VideoIntro.css';
 
 export default function VideoIntro() {
   const { videoIntro } = portfolioData;
+  const introVideoUrl =
+    videoIntro?.videoUrl ||
+    "https://drive.google.com/file/d/1uyTbjMO7UH4Sr0JSPGzaSej086WtjQ4c/preview";
 
   return (
     <section id="video-intro" className="section pop-video-section">
@@ -29,31 +32,18 @@ export default function VideoIntro() {
               <span className="dot dot-yellow" />
               <span className="dot dot-green" />
             </div>
-            <span className="pop-video-title">intro.mp4</span>
-            <span className="pop-video-badge">CREATIVE HD</span>
+            <span className="pop-video-title">intro_perkenalan.mp4</span>
+            <span className="pop-video-badge">GOOGLE DRIVE HD</span>
           </div>
 
           <div className="pop-video-screen">
-            {videoIntro.videoType === 'embed' || videoIntro.videoUrl?.includes('drive.google.com') ? (
-              <iframe
-                src={videoIntro.videoUrl}
-                title="Video Perkenalan Refaldi Kurniawan"
-                className="w-full h-full rounded-xl border-0 pop-video-iframe"
-                allow="autoplay"
-                allowFullScreen
-              />
-            ) : (
-              <video
-                controls
-                className="pop-video-native"
-                src={videoIntro.videoFileUrl || "/introvid/intro.mp4"}
-                playsInline
-                preload="metadata"
-              >
-                <source src={videoIntro.videoFileUrl || "/introvid/intro.mp4"} type="video/mp4" />
-                Browser Anda tidak mendukung pemutar video HTML5.
-              </video>
-            )}
+            <iframe
+              src={introVideoUrl}
+              className="w-full h-full rounded-xl border-0 pop-video-iframe"
+              allow="autoplay"
+              allowFullScreen
+              title="Video Perkenalan Refaldi Kurniawan"
+            />
           </div>
 
           <div className="pop-video-footer">

@@ -36,9 +36,9 @@ export const portfolioData = {
     badge: "VIDEO PERKENALAN",
     title: "Tonton Video Perkenalan Diri",
     subtitle: "Video singkat yang memperkenalkan diri saya, minat di bidang kreatif digital, dan proses pembuatan karya.",
-    videoType: "file",
-    videoUrl: "",
-    videoFileUrl: "/introvid/intro.mp4",
+    videoType: "embed",
+    videoUrl: "https://drive.google.com/file/d/1uyTbjMO7UH4Sr0JSPGzaSej086WtjQ4c/preview",
+    videoFileUrl: "https://drive.google.com/file/d/1uyTbjMO7UH4Sr0JSPGzaSej086WtjQ4c/preview",
     highlights: [
       {
         number: "01",
