@@ -1,0 +1,124 @@
+/* ==========================================================================
+   ABOUT COMPONENT STYLES
+   ========================================================================== */
+
+.about-section {
+  position: relative;
+}
+
+.about-main-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .about-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tabs Container */
+.about-tabs-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.about-tab-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.2));
+  color: var(--text-primary);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.25);
+}
+
+.about-tab-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-paragraph {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  white-space: pre-line;
+}
+
+.about-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Highlights Grid */
+.about-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .about-highlights-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.highlight-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.highlight-icon {
+  font-size: 1.5rem;
+}
+
+.highlight-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-desc {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
