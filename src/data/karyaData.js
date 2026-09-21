@@ -10,8 +10,26 @@ export const karyaCategories = [
 
 export const karyaData = [
   // ==========================================
-  // 1. DAFTAR KARYA VIDEO (.mp4)
+  // 1. DAFTAR KARYA VIDEO UTAMA (VIDEO BERITA DI URUTAN KE-1 & KE-2)
   // ==========================================
+  {
+    id: "karya-20",
+    title: "Video Berita Tugas Bahasa Indonesia",
+    category: "Movie",
+    description: "Produksi video peliputan berita dan dokumentasi naratif.",
+    videoUrl: "https://drive.google.com/file/d/1ZI61PTaQGfB6OmY-Bwx8kdyK_K9vM5CE/preview",
+    tags: ["Movie", "Berita", "Dokumenter"],
+    hidden: false,
+  },
+  {
+    id: "karya-21",
+    title: "Video Berita Tugas Dinta",
+    category: "Movie",
+    description: "Proyek video liputan berita dan presentasi informasi.",
+    videoUrl: "https://drive.google.com/file/d/1Uf6ipBArFePO1pgL6zAzFfdEW2lFNjIM/preview",
+    tags: ["Movie", "Berita", "Storytelling"],
+    hidden: false,
+  },
   {
     id: "karya-1",
     title: "Ada Masanya",
@@ -181,24 +199,6 @@ export const karyaData = [
     description: "Editing video kreatif bertema satire dan visual masking unik.",
     videoUrl: "https://drive.google.com/file/d/1SxxNq_wTlaXAkFO8R_M-pq8uptRZTpmb/preview",
     tags: ["Video Edit", "Creative Cut", "Masking"],
-    hidden: false,
-  },
-  {
-    id: "karya-20",
-    title: "Video Berita Tugas Bahasa Indonesia",
-    category: "Movie",
-    description: "Produksi video peliputan berita dan dokumentasi naratif.",
-    videoUrl: "https://drive.google.com/file/d/1ZI61PTaQGfB6OmY-Bwx8kdyK_K9vM5CE/preview",
-    tags: ["Movie", "Berita", "Dokumenter"],
-    hidden: false,
-  },
-  {
-    id: "karya-21",
-    title: "Video Berita Tugas Dinta",
-    category: "Movie",
-    description: "Proyek video liputan berita dan presentasi informasi.",
-    videoUrl: "https://drive.google.com/file/d/1Uf6ipBArFePO1pgL6zAzFfdEW2lFNjIM/preview",
-    tags: ["Movie", "Berita", "Storytelling"],
     hidden: false,
   },
 
